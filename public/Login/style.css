@@ -8,25 +8,22 @@
 
 body {
     font-family: var(--fonte-texto);
-}
 
-input,
-select,
-button {
-    font-family: inherit;
-}
-
-
-.containerPrincipal {
     background: linear-gradient(90deg,
             #173FAA 0%,
             #234FC1 48%,
             #F5F4EE 48%,
             #F5F4EE 100%);
 
-    padding: 20px 40px 0px 40px;
+    padding: 20px 40px 20px 40px;
 
     overflow: hidden;
+}
+
+input,
+select,
+button {
+    font-family: inherit;
 }
 
 .containerPrincipalNavBar {
@@ -132,24 +129,23 @@ button {
 
 .divButton {
 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
+    display: flex;
+    flex-direction: column;
 }
 
 .divButton button {
 
     border: none;
-    background-color: #173FAA; 
-    color:#F8F8F2;
-    
-    width: 420px;
+    background-color: #173FAA;
+    color: #F8F8F2;
+
+    width: 478px;
     height: 46px;
 
     text-transform: uppercase;
-    
-    font-size: 10px; 
-    display: flex; 
+
+    font-size: 10px;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding-left: 20px;

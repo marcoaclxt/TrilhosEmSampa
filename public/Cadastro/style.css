@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+    --fonte-titulo: 'Anton', Impact, sans-serif;
+    --fonte-texto: Arial, Helvetica, sans-serif;
+    --fonte-detalhe: 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--fonte-texto);
+
+    background: linear-gradient(90deg,
+            #173FAA 0%,
+            #234FC1 48%,
+            #F5F4EE 48%,
+            #F5F4EE 100%);
+
+    padding: 20px 40px 100px 40px;
+}
+
+input,
+select,
+button {
+    font-family: inherit;
+}
+
+.containerPrincipalNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerPrincipalNavBarLeft {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    gap: 30px;
+}
+
+
+.containerPrincipalNavBarLogo {
+    width: 180px;
+}
+
+
+.containerPMiddleRightInside {
+    position: relative;
+    top: 94px;
+    display: flex;
+    flex-direction: column;
+
+    font-family: var(--fonte-texto);
+}
+
+.tituloFormulario {
+    font-family: var(--fonte-titulo);
+    font-size: 49px;
+    font-weight: 400;
+    line-height: 1.08;
+
+    color: #192835;
+}
+
+.middleRightTitle {
+    width: 300px;
+}
+
+.middleLeftInside {
+    position: relative;
+    top: 94px;
+    z-index: 100;
+
+    font-family: var(--fonte-texto);
+}
+
+
+.imgTrem {
+    position: relative;
+    display: block;
+    width: 100%;
+    max-width: 650px;
+    height: auto;
+    object-fit: contain;
+}
+
+
+.containerPrincipalMiddle {
+    display: flex;
+    gap: 210px;
+}
+
+.divInput {
+    margin-top: 30px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.divInput p {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #38444e;
+    margin-top: 7px
+}
+
+.inputDesc {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #38444e;
+    margin-top: 14px;
+
+}
+
+.divInput input {
+    display: block;
+    height: 49px;
+    border: 1px solid #ced3d5;
+    border-radius: 0;
+    background: #fff;
+    color: #192835;
+    padding: 0 14px;
+    font-weight: 400;
+    font-size: 13px
+}
+
+.senha {
+    display: flex;
+    flex-direction: row;
+
+    gap: 20px;
+}
+
+.divInputItem input {
+    width: 200px;
+}
+
+.divButton {
+
+    display: flex;
+    flex-direction: column;
+}
+
+.divButton button {
+
+    border: none;
+    background-color: #173FAA;
+    color: #F8F8F2;
+
+    width: 478px;
+    height: 46px;
+
+    text-transform: uppercase;
+
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    margin-top: 30px;
+    font-weight: 900;
+}
+
+.captionButton {
+    margin-top: 40px;
+
+
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #666869;
+}
+
+.captionButton a {
+    color: #173FAA;
+}
