@@ -1,0 +1,73 @@
+.containerPrincipal {
+    background: linear-gradient(90deg,
+            #173FAA 0%,
+            #234FC1 48%,
+            #F5F4EE 48%,
+            #F5F4EE 100%);
+
+    height: 94vh;
+    padding: 20px 40px 0px 40px;
+}
+
+.containerPrincipalNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerPrincipalNavBarLeft {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    gap: 30px;
+}
+
+
+.containerPrincipalNavBarLogo {
+    width: 180px;
+}
+
+
+
+
+.containerPrincipalMiddle {
+    display: flex;
+    align-items: center;
+}
+
+.divInput {
+    display: flex;
+    flex-direction: column;
+}
+
+.divInput p {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #38444e;
+    margin-top: 7px
+}
+
+.inputDesc {    
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #38444e;
+    margin-top: 7px
+}
+
+.divInput input {
+    display: block;
+    width: 451px;
+    height: 49px;
+    border: 1px solid #ced3d5;
+    border-radius: 0;
+    background: #fff;
+    color: #192835;
+    padding: 0 14px;
+    font-weight: 400;
+    font-size: 13px
+}
