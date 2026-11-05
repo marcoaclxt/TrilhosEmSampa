@@ -56,7 +56,11 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var fkEmpresa = req.body.idEmpresaVincularServer;
+
+    var linhaFavorita = req.body.linhaFavServer;
+    var estacaoFavorita = req.body.estacaoServer;
+    var frotaFavorita = req.body.frotaServer;
+    var frequenciaUso = req.body.freqServer;
 
     // Faça as validações dos valores
     if (nome == undefined) {
@@ -65,12 +69,18 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (fkEmpresa == undefined) {
-        res.status(400).send("Sua empresa a vincular está undefined!");
-    } else {
+    } else if (linhaFavorita == undefined) {
+        res.status(400).send("Sua linha favorita está undefined!");
+    } else if (estacaoFavorita == undefined) {
+        res.status(400).send("Sua estação favorita está undefined!");
+    } else if (frotaFavorita == undefined) {
+        res.status(400).send("Sua frota favorita está undefined!");
+    } else if (frequenciaUso == undefined) {
+        res.status(400).send("Sua frequência de uso está undefined!");
+    }else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, fkEmpresa)
+        usuarioModel.cadastrar(nome, email, senha, linhaFavorita, estacaoFavorita, frotaFavorita, frequenciaUso)
             .then(
                 function (resultado) {
                     res.json(resultado);

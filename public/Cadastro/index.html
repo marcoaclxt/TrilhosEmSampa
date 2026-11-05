@@ -171,18 +171,28 @@
 
 <script>
 
+    let inputNomeAtual = "";
+    let inputEmailAtual = "";
+    let inputSenhaAtual = "";
+    let inputConfirmaSenhaAtual = "";
+
     function continuarCadastro() {
+
         let inputNome = iptNome.value;
         let inputEmail = iptEmail.value;
         let inputSenha = iptSenha.value;
         let inputConfirmaSenha = iptConfirmaSenha.value;
 
-
         if (inputNome == "" || inputEmail == "" || inputSenha == "" || inputConfirmaSenha == "") {
-            alert("Você precisa preencher todos os campos para se cadastrar")
+            alert("Você precisa preencher todos os campos para continuar seu cadastro!")
         } else {
             inputsContainerStep1.style.display = "none"
             inputsContainerStep2.style.display = "block"
+
+            inputNomeAtual = inputNome
+            inputEmailAtual = inputEmail
+            inputSenhaAtual = inputSenha
+            inputConfirmaSenhaAtual = inputConfirmaSenha
         }
     }
 
@@ -205,11 +215,65 @@
 
 
         if (inputLinhaFavorita == 0 || inputEstacao == "" || inputFrota == "" || inputFrequencia == "") {
-            alert("Você precisa preencher todos os campos para se cadastrar")
+            alert("Você precisa preencher todos os campos para se cadastrar!")
         } else {
-            inputsContainerStep1.style.display = "none"
-            inputsContainerStep2.style.display = "block"
+
+
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: inputNomeAtual,
+                    emailServer: inputEmailAtual,
+                    senhaServer: inputSenhaAtual,
+                    linhaFavServer: inputLinhaFavorita,
+                    estacaoServer: inputEstacao,
+                    frotaServer: inputFrota,
+                    freqServer: inputFrequencia,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        //cardErro.style.display = "block";
+
+                        //mensagem_erro.innerHTML =
+                        //    "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+                        setTimeout(() => {
+                            window.location = "../Login/index.html";
+                        }, "2000");
+
+                        limparFormulario();
+                        finalizarAguardar();
+                    } else {
+                        throw "Houve um erro ao tentar realizar o cadastro!";
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                    finalizarAguardar();
+                });
+
+            return false;
         }
+
     }
+
+
+
+
+
+
+
+
+
+
 
 </script>
