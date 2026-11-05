@@ -49,43 +49,117 @@
             <div class="containerPrincipalMiddleRight">
 
                 <div class="containerPMiddleRightInside">
-                    <p class="tituloFormulario middleRightTitle">SUA HISTÓRIA <span style="color: #204bb6;">ENTRA NA
-                            LINHA.</span></p>
+                    <p class="tituloFormulario middleRightTitle">
+                        SUA HISTÓRIA <span style="color: #204bb6;">ENTRA NA LINHA.</span>
+                    </p>
 
-                    <p class="inputDesc">Seu lugar para compartilhar um olhar sobre os trilhos de São Paulo.</p>
+                    <p class="inputDesc">Crie sua conta e conte o que faz você se conectar com os trilhos.</p>
 
-                    <div class="divInput">
-                        <p>Como você se chama?</p>
-                        <input id="iptNome" style="width: 451px;" placeholder="Seu nome" type="text">
-                    </div>
+                    <div id="inputsContainerStep1" class="inputsContainer">
 
-                    <div class="divInput">
-                        <p>E-mail:</p>
-                        <input id="iptEmail" style="width: 451px;" placeholder="seumail@exemplo.com" type="email">
-                    </div>
-
-                    <div class="divInput senha">
-                        <div class="divInputItem">
-                            <p>Senha:</p>
-                            <input id="iptSenha" placeholder="Crie sua senha" type="text">
+                        <div class="divInput">
+                            <p>Como você se chama?</p>
+                            <input id="iptNome" style="width: 451px;" placeholder="Seu nome" type="text">
                         </div>
 
-                        <div class="divInputItem">
-                            <p>Confirme a senha:</p>
-                            <input id="iptConfirmaSenha" placeholder="Repita sua senha" type="text">
+                        <div class="divInput">
+                            <p>E-mail:</p>
+                            <input id="iptEmail" style="width: 451px;" placeholder="seumail@exemplo.com" type="email">
+                        </div>
+
+                        <div class="divInput senha">
+                            <div class="divInputItem">
+                                <p>Senha:</p>
+                                <input id="iptSenha" placeholder="Crie sua senha" type="text">
+                            </div>
+
+                            <div class="divInputItem">
+                                <p>Confirme a senha:</p>
+                                <input id="iptConfirmaSenha" placeholder="Repita sua senha" type="text">
+                            </div>
+                        </div>
+
+                        <div class="divButton">
+                            <button onclick="continuarCadastro()">
+                                Continuar
+                                <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"
+                                    alt="Seta do botão comece a explorar">
+                            </button>
+
+                            <p class="captionButton">Já possui uma conta? <a href="../Login/index.html">Embarque
+                                    aqui.</a>
+                            </p>
                         </div>
                     </div>
 
-                    <div class="divButton">
-                        <button onclick="validarCadastro()">
-                            Continuar
-                            <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"
-                                alt="Seta do botão comece a explorar">
-                        </button>
+                    <div id="inputsContainerStep2" class="inputsContainer">
 
-                        <p class="captionButton">Já possui uma conta? <a href="../Login/index.html">Embarque aqui.</a>
-                        </p>
+                        <div class="divInput">
+                            <p>Selecione uma linha favorita</p>
+
+                            <select style="width: 478px;" id="iptLinhaFavorita">
+                                <option value="0" default>Selecione uma linha</option>
+                                <option value="1">Linha 1 - Azul</option>
+                                <option value="2">Linha 2 - Verde</option>
+                                <option value="3">Linha 3 - Vermelha</option>
+                                <option value="4">Linha 4 - Amarela</option>
+                                <option value="5">Linha 5 - Lilás</option>
+                                <option value="15">Linha 15 - Prata</option>
+                            </select>
+                        </div>
+
+
+                        <div class="divInput senha">
+                            <div class="divInputItem">
+                                <p>Estação Favorita:</p>
+                                <input id="iptEstacaoFavorita" placeholder="Digite a estação" type="text">
+                            </div>
+
+                            <div class="divInputItem">
+                                <p>Frota de trem Favorita:</p>
+                                <input id="iptFrotaFavorita" placeholder="Digite a frota" type="text">
+                            </div>
+                        </div>
+
+                        <div class="divInput">
+                            <p>Com que frequência você usa metrô ou trem?</p>
+
+                            <div class="choices">
+                                <label>
+                                    <input type="radio" name="frequency" id="iptFreqAlta" value="5-7">5 a 7 dias por
+                                    semana
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="frequency" id="iptFreqMedia" value="2-4">2 a 4 dias por
+                                    semana
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="frequency" id="iptFreqBaixa" value="ate-1">Até 1 dia por
+                                    semana
+                                </label>
+
+                                <label>
+                                    <input type="radio" name="frequency" id="iptFreqNunca" value="nao-uso">Não uso
+                                    atualmente
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="divButton">
+                            <button onclick="validarCadastro()">
+                                Criar minha conta
+                                <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"
+                                    alt="Seta do botão comece a explorar">
+                            </button>
+
+                            <p class="captionButton">
+                                Já possui uma conta? <a href="../Login/index.html">Embarque aqui.</a>
+                            </p>
+                        </div>
                     </div>
+
 
                 </div>
             </div>
@@ -97,7 +171,7 @@
 
 <script>
 
-    function validarCadastro() {
+    function continuarCadastro() {
         let inputNome = iptNome.value;
         let inputEmail = iptEmail.value;
         let inputSenha = iptSenha.value;
@@ -106,6 +180,35 @@
 
         if (inputNome == "" || inputEmail == "" || inputSenha == "" || inputConfirmaSenha == "") {
             alert("Você precisa preencher todos os campos para se cadastrar")
+        } else {
+            inputsContainerStep1.style.display = "none"
+            inputsContainerStep2.style.display = "block"
+        }
+    }
+
+    function validarCadastro() {
+        let inputLinhaFavorita = iptLinhaFavorita.value;
+        let inputEstacao = iptEstacaoFavorita.value;
+        let inputFrota = iptFrotaFavorita.value;
+
+        let inputFrequencia = "";
+
+        if (iptFreqAlta.checked) {
+            inputFrequencia = iptFreqAlta.value;
+        } else if (iptFreqMedia.checked) {
+            inputFrequencia = iptFreqMedia.value;
+        } else if (iptFreqBaixa.checked) {
+            inputFrequencia = iptFreqBaixa.value;
+        } else if (iptFreqNunca.checked) {
+            inputFrequencia = iptFreqNunca.value;
+        }
+
+
+        if (inputLinhaFavorita == 0 || inputEstacao == "" || inputFrota == "" || inputFrequencia == "") {
+            alert("Você precisa preencher todos os campos para se cadastrar")
+        } else {
+            inputsContainerStep1.style.display = "none"
+            inputsContainerStep2.style.display = "block"
         }
     }
 

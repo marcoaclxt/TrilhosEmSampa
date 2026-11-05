@@ -116,7 +116,8 @@ button {
 
 }
 
-.divInput input {
+.divInput input,
+#iptLinhaFavorita {
     display: block;
     height: 49px;
     border: 1px solid #ced3d5;
@@ -139,8 +140,12 @@ button {
     width: 200px;
 }
 
-.divButton {
+.divInputItem input:hover, .divInput input:hover {
+    border-color: #446ed8d5;
+    background-color: #446ed810;
+}
 
+.divButton {
     display: flex;
     flex-direction: column;
 }
@@ -163,11 +168,12 @@ button {
     padding-left: 20px;
     margin-top: 30px;
     font-weight: 900;
+
+    cursor: pointer;
 }
 
 .captionButton {
     margin-top: 40px;
-
 
     font-size: 14px;
     font-weight: 400;
@@ -177,4 +183,65 @@ button {
 
 .captionButton a {
     color: #173FAA;
+}
+
+
+.freq {
+    border: 0;
+    padding: 0;
+    margin: 0 0 22px
+}
+
+.freq legend {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 10px
+}
+
+.choices {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px
+}
+
+.choices label {
+    margin-top: 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid #ced3d5;
+    padding: 0px 12px 0px 12px;
+    font-size: 12px;
+    background: white;
+    cursor: pointer
+}
+
+.choices label:has(:checked) {
+    border-color: #204bb6;
+    color: #204bb6;
+    background: #edf2ff
+}
+
+.choices label:hover {
+    border-color: #446ed8d5;
+    background-color: #446ed810;
+}
+
+.choices input {
+    accent-color: #204bb6;
+    margin: 0
+}
+
+#inputsContainerStep1 {
+    display: block;
+    position: absolute;
+    top: 140px;
+}
+
+#inputsContainerStep2 {
+    display: none;
+
+    position: absolute;
+    top: 140px;
 }
