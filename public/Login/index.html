@@ -39,7 +39,6 @@
                     </div>
 
                     <img class="imgTrem" src="../assets/imgTrem.png" alt="Trem do container principal">
-
                     
                 </div>
 
@@ -53,21 +52,21 @@
 
                         <div class="divInput">
                             <p>E-mail:</p>
-                            <input placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
+                            <input id="iptEmail" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
                         </div>
 
                         <div class="divInput">
                             <p>Senha:</p>
-                            <input placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
+                            <input id="iptSenha" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
                         </div>
 
                         <div class="divButton">
-                            <button>
+                            <button onclick="validarLogin()">
                                 Entrar
                                 <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"alt="Seta do botão comece a explorar">
                             </button>
 
-                            <p class="captionButton">Ainda não tem uma conta? <a href="">Embarque aqui.</a></p>
+                            <p class="captionButton">Ainda não tem uma conta? <a href="../Cadastro/index.html">Embarque aqui.</a></p>
                         </div>
                         
                     </div>
@@ -75,5 +74,18 @@
             </div>
     </div>
 </body>
-
 </html>
+
+<script>
+
+    function validarLogin() {
+        let inputEmail = iptEmail.value;
+        let inputSenha = iptSenha.value;
+
+
+        if(inputEmail == "" || inputSenha == "") {
+            alert("Você precisa preencher todos os campos para se cadastrar")
+        }
+    }
+
+</script>

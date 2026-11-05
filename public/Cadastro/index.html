@@ -29,8 +29,10 @@
                 <div class="middleLeftInside">
                     <p style="font-weight: 900;color: #F5F4EE;" class="legenda">SÂO PAULO, VISTA PELOS TRILHOS.</p>
 
-                    <p style="font-size: 62px; font-weight: 900; color: #F5F4EE;margin-top: 10px;width: 550px;"
-                        class="titulo">A CIDADE TEM MUITAS LINHAS. QUAL É A SUA?</p>
+                    <p style="font-size: 67px; font-weight: 900; color: #F5F4EE;margin-top: 10px;width: 450px;"
+                        class="titulo">
+                        A CIDADE TEM MUITAS LINHAS. QUAL É A SUA?
+                    </p>
 
                     <p class="legenda"
                         style="width: 340px; color: #f5f4eec4; font-size: 14px;font-weight: 600;margin-top: 30px;">
@@ -47,40 +49,42 @@
             <div class="containerPrincipalMiddleRight">
 
                 <div class="containerPMiddleRightInside">
-                    <p class="tituloFormulario middleRightTitle">SUA HISTÓRIA <span style="color: #204bb6;">ENTRA NA LINHA.</span></p>
+                    <p class="tituloFormulario middleRightTitle">SUA HISTÓRIA <span style="color: #204bb6;">ENTRA NA
+                            LINHA.</span></p>
 
                     <p class="inputDesc">Seu lugar para compartilhar um olhar sobre os trilhos de São Paulo.</p>
 
                     <div class="divInput">
                         <p>Como você se chama?</p>
-                        <input style="width: 451px;" placeholder="Seu nome" type="text">
+                        <input id="iptNome" style="width: 451px;" placeholder="Seu nome" type="text">
                     </div>
 
                     <div class="divInput">
                         <p>E-mail:</p>
-                        <input style="width: 451px;" placeholder="seumail@exemplo.com" type="text">
+                        <input id="iptEmail" style="width: 451px;" placeholder="seumail@exemplo.com" type="email">
                     </div>
 
                     <div class="divInput senha">
                         <div class="divInputItem">
                             <p>Senha:</p>
-                            <input placeholder="Crie sua senha" type="text">
+                            <input id="iptSenha" placeholder="Crie sua senha" type="text">
                         </div>
 
                         <div class="divInputItem">
                             <p>Confirme a senha:</p>
-                            <input placeholder="Repita sua senha" type="text">
+                            <input id="iptConfirmaSenha" placeholder="Repita sua senha" type="text">
                         </div>
                     </div>
 
                     <div class="divButton">
-                        <button>
+                        <button onclick="validarCadastro()">
                             Continuar
                             <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"
                                 alt="Seta do botão comece a explorar">
                         </button>
 
-                        <p class="captionButton">Ainda não tem uma conta? <a href="">Embarque aqui.</a></p>
+                        <p class="captionButton">Já possui uma conta? <a href="../Login/index.html">Embarque aqui.</a>
+                        </p>
                     </div>
 
                 </div>
@@ -90,3 +94,19 @@
 </body>
 
 </html>
+
+<script>
+
+    function validarCadastro() {
+        let inputNome = iptNome.value;
+        let inputEmail = iptEmail.value;
+        let inputSenha = iptSenha.value;
+        let inputConfirmaSenha = iptConfirmaSenha.value;
+
+
+        if (inputNome == "" || inputEmail == "" || inputSenha == "" || inputConfirmaSenha == "") {
+            alert("Você precisa preencher todos os campos para se cadastrar")
+        }
+    }
+
+</script>
