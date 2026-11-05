@@ -31,6 +31,8 @@ CREATE TABLE usuario (
 	FOREIGN KEY (fk_linha) REFERENCES linha(id)
 );
 
+select * from usuario;
+
 /*
 CREATE TABLE aviso (
 	id INT PRIMARY KEY AUTO_INCREMENT,

@@ -25,55 +25,59 @@
 
 
 
-                <div class="containerPrincipalMiddleLeft">
-                    <div class="middleLeftInside">
-                        <p style="font-weight: 900;color: #F5F4EE;" class="legenda">SÂO PAULO, VISTA PELOS TRILHOS.</p>
-    
-                        <p style="font-size: 62px; font-weight: 900; color: #F5F4EE;margin-top: 10px;width: 550px;"
-                            class="titulo">SUA PRÓXIMA CONEXÃO COMEÇA AQUI.</p>
-    
-                        <p class="legenda" style="width: 340px; color: #f5f4eec4; font-size: 14px;font-weight: 600;margin-top: 30px;">
-                            Existe uma cidade inteira entre uma estação e outra. Embarque no universo dos metrôs e trens que
-                            me inspira.
-                        </p>
-                    </div>
+            <div class="containerPrincipalMiddleLeft">
+                <div class="middleLeftInside">
+                    <p style="font-weight: 900;color: #F5F4EE;" class="legenda">SÂO PAULO, VISTA PELOS TRILHOS.</p>
 
-                    <img class="imgTrem" src="../assets/imgTrem.png" alt="Trem do container principal">
-                    
+                    <p style="font-size: 62px; font-weight: 900; color: #F5F4EE;margin-top: 10px;width: 550px;"
+                        class="titulo">SUA PRÓXIMA CONEXÃO COMEÇA AQUI.</p>
+
+                    <p class="legenda"
+                        style="width: 340px; color: #f5f4eec4; font-size: 14px;font-weight: 600;margin-top: 30px;">
+                        Existe uma cidade inteira entre uma estação e outra. Embarque no universo dos metrôs e trens que
+                        me inspira.
+                    </p>
                 </div>
 
+                <img class="imgTrem" src="../assets/imgTrem.png" alt="Trem do container principal">
 
-                <div class="containerPrincipalMiddleRight">
+            </div>
 
-                    <div class="containerPMiddleRightInside">     
-                        <p class="tituloFormulario">ENTRE NESSA <span style="color: #204bb6;">CONEXÃO.</span></p>
-    
-                        <p class="inputDesc">Seu lugar para compartilhar um olhar sobre os trilhos de São Paulo.</p>
 
-                        <div class="divInput">
-                            <p>E-mail:</p>
-                            <input id="iptEmail" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
-                        </div>
+            <div class="containerPrincipalMiddleRight">
 
-                        <div class="divInput">
-                            <p>Senha:</p>
-                            <input id="iptSenha" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
-                        </div>
+                <div class="containerPMiddleRightInside">
+                    <p class="tituloFormulario">ENTRE NESSA <span style="color: #204bb6;">CONEXÃO.</span></p>
 
-                        <div class="divButton">
-                            <button onclick="validarLogin()">
-                                Entrar
-                                <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"alt="Seta do botão comece a explorar">
-                            </button>
+                    <p class="inputDesc">Seu lugar para compartilhar um olhar sobre os trilhos de São Paulo.</p>
 
-                            <p class="captionButton">Ainda não tem uma conta? <a href="../Cadastro/index.html">Embarque aqui.</a></p>
-                        </div>
-                        
+                    <div class="divInput">
+                        <p>E-mail:</p>
+                        <input id="iptEmail" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
                     </div>
+
+                    <div class="divInput">
+                        <p>Senha:</p>
+                        <input id="iptSenha" placeholder="seumail@exemplo.com" id="iptLoginEmail" type="text">
+                    </div>
+
+                    <div class="divButton">
+                        <button onclick="validarLogin()">
+                            Entrar
+                            <img class="background-color: #F8F8F2;" src="../assets/setaButtonBranco.svg"
+                                alt="Seta do botão comece a explorar">
+                        </button>
+
+                        <p class="captionButton">Ainda não tem uma conta? <a href="../Cadastro/index.html">Embarque
+                                aqui.</a></p>
+                    </div>
+
                 </div>
             </div>
+        </div>
     </div>
 </body>
+
 </html>
 
 <script>
@@ -83,9 +87,74 @@
         let inputSenha = iptSenha.value;
 
 
-        if(inputEmail == "" || inputSenha == "") {
+        if (inputEmail == "" || inputSenha == "") {
             alert("Você precisa preencher todos os campos para se cadastrar")
+        } else {
+            setTimeout(function () {
+                entrar()
+            }, 2000);
         }
+    }
+
+    function entrar() {
+
+        var emailVar = iptEmail.value;
+        var senhaVar = iptSenha.value;
+
+        if (emailVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+
+        console.log("FORM LOGIN: ", emailVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                emailServer: emailVar,
+                senhaServer: senhaVar
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    setTimeout(function () {
+                        window.location = "../Home/index.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
     }
 
 </script>
