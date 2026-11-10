@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trilhos em Sampa | Home</title>
+    <link rel="stylesheet" href="../global.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <button onclick="carregar()">Carregar</button>
+    <div id="divMsg"></div>
+</body>
+
+</html>
+
+<script>
+
+
+    function carregar() {
+
+        fetch(`/dashboard/a`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar total de engajamento.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("Total de engajamento:", dados);
+
+                document.getElementById("divMsg").innerHTML =
+                    dados;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+    }
+
+</script>

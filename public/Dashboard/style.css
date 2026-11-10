@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+:root {
+    --fonte-titulo: 'Anton', Impact, sans-serif;
+    --fonte-texto: Arial, Helvetica, sans-serif;
+    --fonte-detalhe: 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--fonte-texto);
+}
+
+.legenda {
+    font-family: var(--fonte-texto);
+}
+
+
+.containerPrincipal {
+    background: linear-gradient(90deg,
+            #173FAA 0%,
+            #234FC1 58%,
+            #F5F4EE 58%,
+            #F5F4EE 100%);
+
+    height: 94vh;
+    padding: 20px 90px 0px 40px;
+}
+
+.containerPrincipalNavBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerPrincipalNavBarLeft {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    gap: 30px;
+}
+
+.containerPrincipalNavBarLeftButtons {
+    display: flex;
+    align-items: center;
+    color: white;
+
+    gap: 30px;
+}
+
+.containerPrincipalNavBarLeftButtons {
+    display: flex;
+}
+
+.containerPrincipalNavBarLogo {
+    width: 180px;
+}
+
+
+
+
+.containerPrincipalMiddle {
+    display: flex;
+    align-items: center;
+}
+
+
+
+
+
+.containerParadas {
+    padding: 20px 40px 0px 40px;
+}
+
+
+.containerParadasTop {
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerParadasTopDesc {
+    width: 310px;
+
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6c7174;
+}
+
+.containerParadasTitle {
+
+    font-family: var(--fonte-titulo);
+    text-transform: uppercase;
+    font-size: 49px;
+    font-weight: 400;
+    line-height: 1.08;
+
+    color: #192835;
+
+    width: 355px;
+}
+
+.containerParadasCards {
+    margin-top: 35px;
+
+    display: flex;
+    gap: 28px;
+}
+
+.containerParadasCard {
+    width: 460px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.containerParadasImg {
+    padding: 20px 30px;
+    background-image: url(../assets/estacaoLuzImg.jpg);
+    background-size: cover;
+
+    height: 350px;
+}
+
+.linhaVerde {
+    background-image: url(../assets/estacaoSumareImg.jpg);
+    background-position: center;
+}
+
+.linhaVermelha {
+    background-image: url(../assets/estacaoSeImg.jpg);
+    background-position: center;
+}
+
+
+.containerParadasCardsTop {
+    display: flex;
+    justify-content: space-between;
+}
+
+.containerParadasTopNumber {
+    font-family: var(--fonte-titulo);
+    font-size: 30px;
+    color: #F5F4EE;
+}
+
+.containerParadasTopTag {
+    padding: 0px 10px;
+
+    font-size: 12px;
+    font-weight: lighter;
+
+    background-color: #F5F4EE;
+
+    display: flex;
+    align-items: center;
+}
+
+.containerParadasCardsContent {
+    margin-top: 22px;
+}
+
+.containerParadasDesc {
+    margin-top: 12px;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6c7174;
+}
+
+.litleDesc {
+    margin-top: 20px;
+    border-top: 1px solid #19283536;
+    padding: 15px 0px 0px 0px;
+    font-family: var(--fonte-texto);
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 10px;
+    color: #446ed8b2;
+}
