@@ -21,7 +21,7 @@
 
     function carregar() {
 
-        fetch(`/dashboard/a`)
+        fetch(`/dashboard/getLinhaFavorita`)
             .then(function (resposta) {
 
                 if (resposta.ok) {
@@ -33,15 +33,88 @@
             })
             .then(function (dados) {
 
-                console.log("Total de engajamento:", dados);
+                console.log("linha favorita:", dados);
 
-                document.getElementById("divMsg").innerHTML =
-                    dados;
+                document.getElementById("divMsg").innerHTML += `oi ${dados[0][0]}`;
 
             })
             .catch(function (erro) {
                 console.log(erro);
             });
+
+
+            /* Estação */
+
+            fetch(`/dashboard/getEstacaoFavorita`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar total de engajamento.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("getEstacaoFavorita:", dados);
+
+                document.getElementById("divMsg").innerHTML += `oi ${dados[0][0]}`;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+
+
+            /* Frota */
+
+            fetch(`/dashboard/getFrotaFavorita`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar total de engajamento.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("getFrotaFavorita:", dados);
+
+                document.getElementById("divMsg").innerHTML += `oi ${dados[0][0]}`;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
+
+            /* getFrequenciaMetro */
+
+            fetch(`/dashboard/getFrotaFavorita`)
+            .then(function (resposta) {
+
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar total de engajamento.");
+                }
+
+            })
+            .then(function (dados) {
+
+                console.log("getFrotaFavorita:", dados);
+
+                document.getElementById("divMsg").innerHTML += `oi ${dados[0][0]}`;
+
+            })
+            .catch(function (erro) {
+                console.log(erro);
+            });
+
 
     }
 

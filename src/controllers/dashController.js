@@ -1,9 +1,35 @@
 var dashModel = require("../models/dashModel");
 
-function getDados(req, res) {
+function getLinhaFavorita(req, res) {
 
+    dashModel.getLinhaFavorita()
+        .then((result) => {
+            res.json(result)
+        })
 
-    dashModel.getDados()
+}
+
+function getEstacaoFavorita(req, res) {
+
+    dashModel.getEstacaoFavorita()
+        .then((result) => {
+            res.json(result)
+        })
+
+}
+
+function getFrotaFavorita(req, res) {
+
+    dashModel.getFrotaFavorita()
+        .then((result) => {
+            res.json(result)
+        })
+
+}
+
+function getFrequenciaMetro(req, res) {
+
+    dashModel.getFrequenciaMetro()
         .then((result) => {
             res.json(result)
         })
@@ -11,5 +37,6 @@ function getDados(req, res) {
 }
 
 module.exports = {
-    getDados
+    getLinhaFavorita, getEstacaoFavorita, getFrotaFavorita, getFrequenciaMetro
+
 }
