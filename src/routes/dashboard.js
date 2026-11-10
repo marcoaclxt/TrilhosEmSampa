@@ -3,7 +3,7 @@ var router = express.Router();
 
 var dashController = require("../controllers/dashController");
 
-//Recebendo os dados do html e direcionando para a função cadastrar de usuarioController.js
+//Recebendo os dados do html e direcionando para a função cadastrar de dashController.js
 
 router.get("/getLinhaFavorita", function (req, res) {
     dashController.getLinhaFavorita(req, res);
