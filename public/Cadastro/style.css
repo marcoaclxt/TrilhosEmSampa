@@ -117,7 +117,8 @@ button {
 }
 
 .divInput input,
-#iptLinhaFavorita {
+#iptLinhaFavorita,
+#iptEstacaoFavorita {
     display: block;
     height: 49px;
     border: 1px solid #ced3d5;
@@ -136,7 +137,7 @@ button {
     gap: 20px;
 }
 
-.divInputItem input {
+.divInputItem input, .divInputItem select {
     width: 200px;
 }
 

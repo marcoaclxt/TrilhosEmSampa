@@ -112,7 +112,7 @@
                         <div class="divInput senha">
                             <div class="divInputItem">
                                 <p>Estação Favorita:</p>
-                                <input id="iptEstacaoFavorita" placeholder="Digite a estação" type="text">
+                                <select id="iptEstacaoFavorita"></select>
                             </div>
 
                             <div class="divInputItem">
@@ -176,6 +176,36 @@
     let inputSenhaAtual = "";
     let inputConfirmaSenhaAtual = "";
 
+    function carregarEstacoes() {
+        fetch("/estacoes")
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                }
+
+                throw new Error("Erro ao carregar estações.");
+            })
+            .then(function (estacoes) {
+                var select = document.getElementById("iptEstacaoFavorita");
+
+                select.innerHTML =
+                    '<option value="">Selecione uma estação</option>';
+
+                for (var i = 0; i < estacoes.length; i++) {
+                    var opcao = document.createElement("option");
+
+                    opcao.value = estacoes[i].id;
+                    opcao.textContent = estacoes[i].nome;
+
+                    select.appendChild(opcao);
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                alert("Não foi possível carregar as estações.");
+            });
+    }
+
     function continuarCadastro() {
 
         let inputNome = iptNome.value;
@@ -186,6 +216,7 @@
         if (inputNome == "" || inputEmail == "" || inputSenha == "" || inputConfirmaSenha == "") {
             alert("Você precisa preencher todos os campos para continuar seu cadastro!")
         } else {
+            carregarEstacoes()
             inputsContainerStep1.style.display = "none"
             inputsContainerStep2.style.display = "block"
 
