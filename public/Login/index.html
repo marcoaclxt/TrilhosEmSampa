@@ -127,7 +127,7 @@
                 console.log(resposta);
 
                 resposta.json().then(json => {
-                    console.log(json);
+                    console.log(` oiii ${JSON.stringify(json)}`);
                     console.log(JSON.stringify(json));
                     sessionStorage.EMAIL_USUARIO = json.email;
                     sessionStorage.NOME_USUARIO = json.nome;
@@ -135,7 +135,7 @@
                     sessionStorage.LINHA_FAVORITA = json.linhaFavorita;
 
                         setTimeout(function () {
-                            //window.location = "../Dashboard/index.html";
+                            window.location = "../Dashboard/index.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
