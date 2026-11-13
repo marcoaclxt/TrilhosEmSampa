@@ -40,15 +40,6 @@
 
     function carregar() {
 
-
-        let linhaFavoritaNomes = []
-        let linhaFavoritaQtd = []
-
-        let contCadastros = 0
-        let linhaFavorita = 0
-        let estacaoFavoritaNomes = []
-
-
         fetch(`/dashboard/getLinhaFavorita`)
             .then(function (resposta) {
 
@@ -61,13 +52,33 @@
             })
             .then(function (dados) {
 
-                console.log("linha favorita:", dados[0]);
-                console.log("linha favorita:", dados);
+                let linhaFavoritaNomes = []
+                let linhaFavoritaQtd = []
 
-                for (i = dados.length - 1; i >= 0; i--) {
+                let contCadastros = 0
+                let linhaFavorita = 0
+                let estacaoFavoritaNomes = []
+                
+                console.log("dados[0]:", dados[0]);
+                console.log("dados:", dados);
+
+                for (let i = dados.length - 1; i >= 0; i--) {
+                    console.log('iteração: ', i);
                     linhaFavoritaNomes.push(dados[i].nome)
                     linhaFavoritaQtd.push(dados[i].quantidade)
                 }
+
+                console.log('label: ', linhaFavoritaNomes)
+
+                // let vetorAuxiliar = [];
+                // for (let i = 0; i < linhaFavoritaNomes.length; i++) {
+                //     const element = linhaFavoritaNomes[i];
+                //     if (element != undefined) {
+                //         vetorAuxiliar.push(element)
+                //     }
+                // }
+
+                // linhaFavoritaNomes = vetorAuxiliar;
 
                 msgLinhaFavorita.innerHTML = `Linha Favorita${sessionStorage.LINHA_FAVORITA}`
 
