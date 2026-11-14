@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Comunidade - TrilhosEmSampa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="crumb">TRILHOSEMSAMPA  /  COMUNIDADE</div>
+      <h1 class="hero-title">SÃO PAULO PELOS TRILHOS.</h1>
+      <p class="hero-sub">Conheça as preferências de quem se cadastrou no TrilhosEmSampa.</p>
+    </div>
+    <!-- simple SVG to emulate the metro map on the right -->
+    <svg class="hero-map" viewBox="0 0 800 200" preserveAspectRatio="xMidYMid meet" aria-hidden>
+      <defs>
+        <style>.line{stroke:#7ea0ff;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;fill:none;}</style>
+      </defs>
+      <polyline class="line" points="400,40 520,40 620,40 780,40" />
+      <polyline class="line" points="520,40 520,90 560,130 560,160 780,160" />
+      <circle cx="520" cy="40" r="8" fill="#7ea0ff" />
+      <circle cx="560" cy="130" r="8" fill="#7ea0ff" />
+      <circle cx="620" cy="40" r="6" fill="#7ea0ff" />
+      <circle cx="700" cy="40" r="6" fill="#7ea0ff" />
+    </svg>
+  </header>
+
+  <main class="container">
+    <section class="stats-row">
+      <div class="card">
+        <div class="card-top"></div>
+        <h4 class="card-label">Cadastros</h4>
+        <div class="card-number">120</div>
+        <p class="card-foot">Pessoas na base de exemplo</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top"></div>
+        <h4 class="card-label">Linha favorita</h4>
+        <div class="card-number">1 · AZUL</div>
+        <p class="card-foot">42 de 120 pessoas</p>
+      </div>
+
+      <div class="card">
+        <div class="card-top"></div>
+        <h4 class="card-label">Uso frequente</h4>
+        <div class="card-number">45%</div>
+        <p class="card-foot">Usam de 5 a 7 dias por semana</p>
+      </div>
+    </section>
+
+    <section class="panel-header">
+      <h2>PAINEL DA COMUNIDADE</h2>
+      <div class="select-wrap">
+        <label>Exibir em</label>
+        <select>
+          <option>Pessoas</option>
+          <option>Linhas</option>
+        </select>
+      </div>
+    </section>
+
+    <section class="panels">
+      <article class="panel">
+        <h3>LINHAS FAVORITAS</h3>
+        <p class="muted">Linha escolhida no cadastro.</p>
+        <div class="chart-placeholder">
+          <canvas id="chart-linhas"></canvas>
+        </div>
+        <a class="link-values" href="#">▸ Ver valores</a>
+      </article>
+
+      <article class="panel">
+        <h3>ESTAÇÕES FAVORITAS</h3>
+        <p class="muted">Estações que a comunidade mais gosta.</p>
+        <div class="chart-placeholder">
+          <canvas id="chart-estacoes"></canvas>
+        </div>
+        <a class="link-values" href="#">▸ Ver valores</a>
+      </article>
+    </section>
+
+    <section class="panels">
+      <article class="panel">
+        <h3>FROTAS FAVORITAS</h3>
+        <p class="muted">Preferências pelos trens do Metrô.</p>
+        <div class="chart-placeholder">
+          <canvas id="chart-frotas"></canvas>
+        </div>
+        <a class="link-values" href="#">▸ Ver valores</a>
+      </article>
+
+      <article class="panel">
+        <h3>FREQUÊNCIA DE USO</h3>
+        <p class="muted">Quantos dias por semana as pessoas usam metrô ou trem.</p>
+        <div class="chart-placeholder">
+          <canvas id="chart-frequencia"></canvas>
+        </div>
+        <a class="link-values" href="#">▸ Ver valores</a>
+      </article>
+    </section>
+
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // Chart.js global font to match project typography
+    if (window.Chart){
+      Chart.defaults.font.family = 'Arial, Helvetica, sans-serif';
+      Chart.defaults.font.size = 12;
+      Chart.defaults.color = '#333';
+    }
+    // Data examples taken from the provided image layout
+    const linhasData = {
+      labels: ['1 - Azul','2 - Verde','3 - Vermelha','4 - Amarela','5 - Lilás'],
+      datasets: [{
+        data: [44,35,28,15,10],
+        backgroundColor: ['#204fc1','#1b8a56','#c94b46','#e0b12b','#8b5ea8']
+      }]
+    };
+
+    const estacoesData = {
+      labels: ['Luz','Sé','Sumaré','Paulista','Paraíso'],
+      datasets: [{ data:[38,30,22,18,12], backgroundColor:'#204fc1'}]
+    };
+
+    const frotasData = {
+      labels:['Frota H','Frota G','Frota K','Frota J','Sem preferência'],
+      datasets:[{data:[40,33,28,18,8], backgroundColor:'#204fc1'}]
+    };
+
+    const frequenciaData = {
+      labels:['5 a 7 dias','2 a 4 dias','Até 1 dia','Não uso atualmente'],
+      datasets:[{data:[55,39,21,6], backgroundColor:'#204fc1'}]
+    };
+
+    const commonOptions = (title)=>({
+      indexAxis:'y',
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false}, title:{display:false}},
+      scales:{
+        x:{grid:{color:'#eee'}, ticks:{color:'#666'}},
+        y:{ticks:{color:'#222'}, grid:{display:false}}
+      }
+    });
+
+    function createChart(id,data,options){
+      const ctx = document.getElementById(id).getContext('2d');
+      return new Chart(ctx,{type:'bar', data:data, options:options});
+    }
+
+    window.addEventListener('load', ()=>{
+      createChart('chart-linhas', linhasData, commonOptions());
+      createChart('chart-estacoes', estacoesData, commonOptions());
+      createChart('chart-frotas', frotasData, commonOptions());
+      createChart('chart-frequencia', frequenciaData, commonOptions());
+    });
+  </script>
+
+  </body>
+
+</html>
