@@ -12,11 +12,7 @@
 
 </head>
 
-<body onload="carregar()">
-
-
-
-
+<body>
 
     <header class="hero">
         <div class="hero-inner">
@@ -51,14 +47,14 @@
             <div class="card">
                 <div class="card-top"></div>
                 <h4 class="card-label">Cadastros</h4>
-                <div class="card-number">120</div>
-                <p class="card-foot">Pessoas cadastradas no site</p>
+                <div id="numeroCadastros" class="card-number"></div>
+                <p class="card-foot">Pessoas na base de exemplo</p>
             </div>
 
             <div class="card">
                 <div class="card-top"></div>
                 <h4 class="card-label">Linha favorita</h4>
-                <div class="card-number">1 · AZUL</div>
+                <div id="msgLinhaFavorita" class="card-number"></div>
                 <p class="card-foot">42 de 120 pessoas</p>
             </div>
 
@@ -66,7 +62,7 @@
                 <div class="card-top"></div>
                 <h4 class="card-label">Uso frequente</h4>
                 <div class="card-number">45%</div>
-                <p class="card-foot">Usam de 5 a 7 dias por semana</p>
+                <p class="card-foot">Usam de <span id="msgFrequenciaMetro"></span> dias por semana</p>
             </div>
         </section>
 
@@ -125,33 +121,15 @@
 
 
 
-
-
-
-
-
-
-
-
-
     <div id="divMsg"></div>
 
     <div>
         <p id="msgCadastros"></p>
     </div>
 
-    <div>
-        <p id="msgLinhaFavorita"></p>
-    </div>
-
     <div style="width: 300px; height: 300px;">
-        <canvas id="linhasFavoritas"></canvas>
+        <canvas id="myPieChart"></canvas>
     </div>
-
-    <div style="width: 300px; height: 300px;">
-        <canvas id="estacaoFavoritas"></canvas>
-    </div>
-
 </body>
 
 </html>
@@ -159,8 +137,63 @@
 <script>
 
 
-    const intervaloId = setInterval(carregar, 20000);
     let myPieChart = null
+
+    function commonOptions() {
+        return {
+            indexAxis: "y",
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        };
+    }
+
+    function createChart(id, dados, opcoes) {
+        var canvas = document.getElementById(id);
+
+        return new Chart(canvas, {
+            type: "bar",
+            data: dados,
+            options: opcoes
+        });
+    }
+
+
+    var graficoLinhas = null;
+    var linhasData = {
+        labels: [],
+        datasets: [
+            {
+                label: "Quantidade de usuário",
+                data: [],
+                backgroundColor: '#204fc1'
+            }]
+    };
+
+
+    window.addEventListener("load", function () {
+        graficoLinhas = createChart(
+            "chart-linhas",
+            linhasData,
+            commonOptions()
+        );
+
+        carregar();
+
+        setInterval(carregar, 20000);
+    });
 
 
     function carregar() {
@@ -191,55 +224,35 @@
                     console.log('iteração: ', i);
                     linhaFavoritaNomes.push(dados[i].nome)
                     linhaFavoritaQtd.push(dados[i].quantidade)
+                    contCadastros++
                 }
+
+                graficoLinhas.data.labels = linhaFavoritaNomes
+                graficoLinhas.data.datasets[0].data = linhaFavoritaQtd
+
+                graficoLinhas.update()
 
                 console.log('label: ', linhaFavoritaNomes)
 
-                // let vetorAuxiliar = [];
-                // for (let i = 0; i < linhaFavoritaNomes.length; i++) {
-                //     const element = linhaFavoritaNomes[i];
-                //     if (element != undefined) {
-                //         vetorAuxiliar.push(element)
-                //     }
-                // }
+                numeroCadastros.innerHTML = `${contCadastros}`
+                msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
+                msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
 
-                // linhaFavoritaNomes = vetorAuxiliar;
+                if(sessionStorage.LINHA_FAVORITA == 1) {             
+                    msgLinhaFavorita.innerHTML += ` · AZUL`
 
-                msgLinhaFavorita.innerHTML = `Linha Favorita${sessionStorage.LINHA_FAVORITA}`
+                } else if(sessionStorage.LINHA_FAVORITA == 2) {      
+                    msgLinhaFavorita.innerHTML += ` · VERDE`
 
-                const Linhas = document.getElementById('linhasFavoritas').getContext('2d');
+                } else if(sessionStorage.LINHA_FAVORITA == 3) {      
+                    msgLinhaFavorita.innerHTML += ` · VERMELHA`
 
-                if (myPieChart) {
-                    myPieChart.destroy();
+                } else if(sessionStorage.LINHA_FAVORITA == 4) {      
+                    msgLinhaFavorita.innerHTML += ` · AMARELA`
+
+                } else if(sessionStorage.LINHA_FAVORITA == 5) {      
+                    msgLinhaFavorita.innerHTML += ` · LILAS`
                 }
-
-                myPieChart = new Chart(Linhas, {
-                    type: 'pie', // Define o tipo como gráfico de pizza
-                    data: {
-                        labels: linhaFavoritaNomes,
-                        datasets: [{
-                            label: 'Quantidade de Usuários',
-                            data: linhaFavoritaQtd,
-                            backgroundColor: [
-                                '#0051A5', // Azul
-                                '#008061', // Verde
-                                '#EE372F', // Vermelho
-                                '#FFD500', // Amarelo
-                                '#784D9F'  // Lilás
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
-                        }
-                    }
-                });
-
             })
             .catch(function (erro) {
                 console.log(erro);
@@ -268,39 +281,6 @@
                 }
 
                 msgCadastros.innerHTML = `${contCadastros} contas`
-
-                const estacao = document.getElementById('estacaoFavoritas').getContext('2d');
-
-                if (estacaoFavoritas) {
-                    estacaoFavoritas.destroy();
-                }
-
-                estacaoFavoritas = new Chart(estacao, {
-                    type: 'pie', // Define o tipo como gráfico de pizza
-                    data: {
-                        labels: linhaFavoritaNomes,
-                        datasets: [{
-                            label: 'Quantidade de Usuários',
-                            data: linhaFavoritaQtd,
-                            backgroundColor: [
-                                '#0051A5', // Azul
-                                '#008061', // Verde
-                                '#EE372F', // Vermelho
-                                '#FFD500', // Amarelo
-                                '#784D9F'  // Lilás
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: {
-                            legend: {
-                                position: 'top'
-                            }
-                        }
-                    }
-                });
 
             })
             .catch(function (erro) {
@@ -358,10 +338,6 @@
 
 
     }
-
-
-
-
 
 
 

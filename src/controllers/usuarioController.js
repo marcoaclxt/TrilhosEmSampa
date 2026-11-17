@@ -25,6 +25,7 @@ function autenticar(req, res) {
                             nome: resultadoAutenticar[0].nome,
                             senha: resultadoAutenticar[0].senha,
                             linhaFavorita: resultadoAutenticar[0].linhaFavorita,
+                            frequenciaMetro: resultadoAutenticar[0].frequenciaMetro,
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
