@@ -69,11 +69,7 @@
         <section class="panel-header">
             <h2>PAINEL DA COMUNIDADE</h2>
             <div class="select-wrap">
-                <label>Exibir em</label>
-                <select>
-                    <option>Pessoas</option>
-                    <option>Linhas</option>
-                </select>
+                <label>Atualizando a cada 20 segundos.</label>
             </div>
         </section>
 
@@ -84,7 +80,6 @@
                 <div class="chart-placeholder">
                     <canvas id="chart-linhas"></canvas>
                 </div>
-                <a class="link-values" href="#">▸ Ver valores</a>
             </article>
 
             <article class="panel">
@@ -93,43 +88,30 @@
                 <div class="chart-placeholder">
                     <canvas id="chart-estacoes"></canvas>
                 </div>
-                <a class="link-values" href="#">▸ Ver valores</a>
             </article>
         </section>
 
         <section class="panels">
-            <article class="panel">
+            <article style="margin-top: 30px;" class="panel">
                 <h3>FROTAS FAVORITAS</h3>
                 <p class="muted">Preferências pelos trens do Metrô.</p>
                 <div class="chart-placeholder">
                     <canvas id="chart-frotas"></canvas>
                 </div>
-                <a class="link-values" href="#">▸ Ver valores</a>
             </article>
 
-            <article class="panel">
+            <article style="margin-top: 30px;" class="panel">
                 <h3>FREQUÊNCIA DE USO</h3>
                 <p class="muted">Quantos dias por semana as pessoas usam metrô ou trem.</p>
                 <div class="chart-placeholder">
                     <canvas id="chart-frequencia"></canvas>
                 </div>
-                <a class="link-values" href="#">▸ Ver valores</a>
             </article>
         </section>
 
     </main>
 
 
-
-    <div id="divMsg"></div>
-
-    <div>
-        <p id="msgCadastros"></p>
-    </div>
-
-    <div style="width: 300px; height: 300px;">
-        <canvas id="myPieChart"></canvas>
-    </div>
 </body>
 
 </html>
@@ -137,7 +119,6 @@
 <script>
 
 
-    let myPieChart = null
 
     function commonOptions() {
         return {
@@ -160,7 +141,7 @@
         };
     }
 
-    function createChart(id, dados, opcoes) {
+    function createChartBar(id, dados, opcoes) {
         var canvas = document.getElementById(id);
 
         return new Chart(canvas, {
@@ -170,13 +151,57 @@
         });
     }
 
+    function createChartPie(id, dados, opcoes) {
+        var canvas = document.getElementById(id);
+
+        return new Chart(canvas, {
+            type: "pie",
+            data: dados,
+            options: opcoes
+        });
+    }
+
 
     var graficoLinhas = null;
+    var graficoEstacoes = null;
+    var graficoFrotas = null;
+    var graficoFrequencia = null;
+
     var linhasData = {
         labels: [],
         datasets: [
             {
-                label: "Quantidade de usuário",
+                label: "Quantidade de linhas",
+                data: [],
+                backgroundColor: '#204fc1'
+            }]
+    };
+
+    var estacoesData = {
+        labels: [],
+        datasets: [
+            {
+                label: "Quantidade de estações",
+                data: [],
+                backgroundColor: '#204fc1'
+            }]
+    };
+
+    var frotasData = {
+        labels: [],
+        datasets: [
+            {
+                label: "Quantidade de Frotas",
+                data: [],
+                backgroundColor: '#204fc1'
+            }]
+    };
+
+    var frequenciaData = {
+        labels: [],
+        datasets: [
+            {
+                label: "Frequência do usuário",
                 data: [],
                 backgroundColor: '#204fc1'
             }]
@@ -184,9 +209,27 @@
 
 
     window.addEventListener("load", function () {
-        graficoLinhas = createChart(
+        graficoLinhas = createChartBar(
             "chart-linhas",
             linhasData,
+            commonOptions()
+        );
+
+        graficoEstacoes = createChartBar(
+            "chart-estacoes",
+            estacoesData,
+            commonOptions()
+        );
+
+        graficoFrotas = createChartPie(
+            "chart-frotas",
+            frotasData,
+            commonOptions()
+        );
+
+        graficoFrequencia = createChartPie(
+            "chart-frequencia",
+            frequenciaData,
             commonOptions()
         );
 
@@ -214,43 +257,37 @@
                 let linhaFavoritaQtd = []
 
                 let contCadastros = 0
-                let linhaFavorita = 0
-                let estacaoFavoritaNomes = []
-
-                console.log("dados[0]:", dados[0]);
-                console.log("dados:", dados);
 
                 for (let i = dados.length - 1; i >= 0; i--) {
-                    console.log('iteração: ', i);
                     linhaFavoritaNomes.push(dados[i].nome)
                     linhaFavoritaQtd.push(dados[i].quantidade)
                     contCadastros++
                 }
+                console.log(linhaFavoritaQtd)
+
 
                 graficoLinhas.data.labels = linhaFavoritaNomes
                 graficoLinhas.data.datasets[0].data = linhaFavoritaQtd
 
                 graficoLinhas.update()
 
-                console.log('label: ', linhaFavoritaNomes)
-
                 numeroCadastros.innerHTML = `${contCadastros}`
                 msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
                 msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
 
-                if(sessionStorage.LINHA_FAVORITA == 1) {             
+                if (sessionStorage.LINHA_FAVORITA == 1) {
                     msgLinhaFavorita.innerHTML += ` · AZUL`
 
-                } else if(sessionStorage.LINHA_FAVORITA == 2) {      
+                } else if (sessionStorage.LINHA_FAVORITA == 2) {
                     msgLinhaFavorita.innerHTML += ` · VERDE`
 
-                } else if(sessionStorage.LINHA_FAVORITA == 3) {      
+                } else if (sessionStorage.LINHA_FAVORITA == 3) {
                     msgLinhaFavorita.innerHTML += ` · VERMELHA`
 
-                } else if(sessionStorage.LINHA_FAVORITA == 4) {      
+                } else if (sessionStorage.LINHA_FAVORITA == 4) {
                     msgLinhaFavorita.innerHTML += ` · AMARELA`
 
-                } else if(sessionStorage.LINHA_FAVORITA == 5) {      
+                } else if (sessionStorage.LINHA_FAVORITA == 5) {
                     msgLinhaFavorita.innerHTML += ` · LILAS`
                 }
             })
@@ -267,20 +304,25 @@
                 if (resposta.ok) {
                     return resposta.json();
                 } else {
-                    throw new Error("Erro ao buscar total de engajamento.");
+                    throw new Error("Erro ao buscar total de estações.");
                 }
 
             })
             .then(function (dados) {
 
-                for (i = dados.length - 1; i >= 0; i--) {
-                    linhaFavoritaNomes.push(dados[i].nome)
-                    linhaFavoritaQtd.push(dados[i].quantidade)
+                let estacaoFavoritaNomes = []
+                let estacaoFavoritaQtd = []
 
-                    contCadastros++;
+                for (let i = dados.length - 1; i >= 0; i--) {
+                    estacaoFavoritaNomes.push(dados[i].nome)
+                    estacaoFavoritaQtd.push(dados[i].quantidade)
                 }
 
-                msgCadastros.innerHTML = `${contCadastros} contas`
+                graficoEstacoes.data.labels = estacaoFavoritaNomes
+                graficoEstacoes.data.datasets[0].data = estacaoFavoritaQtd
+
+                graficoEstacoes.update()
+
 
             })
             .catch(function (erro) {
@@ -297,12 +339,27 @@
                 if (resposta.ok) {
                     return resposta.json();
                 } else {
-                    throw new Error("Erro ao buscar total de engajamento.");
+                    throw new Error("Erro ao buscar total de frotas.");
                 }
 
             })
             .then(function (dados) {
 
+                //console.log("oi", dados)
+                //console.log("oi", dados[0].nome)
+
+                let frotaFavoritaNomes = []
+                let frotaFavoritaQtd = []
+
+                for (let i = dados.length - 1; i >= 0; i--) {
+                    frotaFavoritaNomes.push(dados[i].nome)
+                    frotaFavoritaQtd.push(dados[i].quantidade)
+                }
+
+                graficoFrotas.data.labels = frotaFavoritaNomes
+                graficoFrotas.data.datasets[0].data = frotaFavoritaQtd
+
+                graficoFrotas.update()
 
             })
             .catch(function (erro) {
@@ -318,19 +375,26 @@
                 if (resposta.ok) {
                     return resposta.json();
                 } else {
-                    throw new Error("Erro ao buscar total de engajamento.");
+                    throw new Error("Erro ao buscar total de frequência.");
                 }
 
             })
             .then(function (dados) {
-                console.log("Frequencia:", dados[0]);
-                console.log("Frequencia:", dados);
+                console.log("oi", dados)
+                console.log("oi", dados[0].nome)
 
-                for (i = dados.length - 1; i >= 0; i--) {
-                    linhaFavoritaNomes.push(dados[i].nome)
-                    linhaFavoritaQtd.push(dados[i].quantidade)
+                let frequenciaNomes = []
+                let frequenciaQtd = []
+
+                for (let i = dados.length - 1; i >= 0; i--) {
+                    frequenciaNomes.push(dados[i].frequenciaMetro)
+                    frequenciaQtd.push(dados[i].quantidade)
                 }
 
+                graficoFrequencia.data.labels = frequenciaNomes
+                graficoFrequencia.data.datasets[0].data = frequenciaQtd
+
+                graficoFrequencia.update()
             })
             .catch(function (erro) {
                 console.log(erro);

@@ -173,3 +173,19 @@ INSERT INTO estacao (nome, fk_linha) VALUES
 ('Fazenda da Juta', 15),
 ('São Mateus', 15),
 ('Jardim Colonial', 15);
+
+SELECT
+            linha.nome,
+            COUNT(*) AS quantidade
+FROM usuario
+JOIN linha ON usuario.fk_linha = linha.id
+        GROUP BY linha.nome
+        ORDER BY quantidade DESC;
+        
+select * from usuario;
+
+select e.nome, count(e.id) from usuario u join estacao e on u.estacaoFavorita = e.id group by e.nome;
+
+select f.nome, count(f.id) from usuario u join frota f on u.frotaFavorita = f.id group by f.nome;
+
+

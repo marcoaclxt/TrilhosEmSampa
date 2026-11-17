@@ -151,6 +151,8 @@ button {
     padding-left: 20px;
     margin-top: 30px;
     font-weight: 900;
+    cursor: pointer;
+
 }
 
 .captionButton {

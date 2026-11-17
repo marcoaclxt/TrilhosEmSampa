@@ -26,7 +26,12 @@ function getEstacaoFavorita() {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       select estacaoFavorita from usuario;
+       SELECT 
+            e.nome, 
+            count(e.id) as quantidade
+        FROM usuario u 
+        JOIN estacao e on u.estacaoFavorita = e.id 
+        GROUP BY e.nome;
     `;
 
     return database.executar(instrucaoSql);
@@ -38,7 +43,11 @@ function getFrotaFavorita() {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       select frotaFavorita from usuario;
+        SELECT 
+            frotaFavorita as nome,
+            COUNT(frotaFavorita) as quantidade
+        FROM usuario
+        GROUP BY frotaFavorita;
     `;
 
     return database.executar(instrucaoSql);
@@ -50,7 +59,11 @@ function getFrequenciaMetro() {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-       select frequenciaMetro from usuario;
+      SELECT 
+	        frequenciaMetro,
+            COUNT(frequenciaMetro) as quantidade
+        FROM usuario 
+        GROUP BY frequenciaMetro;
     `;
 
     return database.executar(instrucaoSql);
