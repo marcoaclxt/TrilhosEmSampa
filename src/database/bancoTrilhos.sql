@@ -13,7 +13,7 @@ USE trilhosEmSampa;
 CREATE TABLE linha (
 	id INT PRIMARY KEY,
 	nome VARCHAR(50) NOT NULL,
-	cor CHAR(14) NOT NULL UNIQUE
+	cor VARCHAR(45) NOT NULL UNIQUE
 );
 
 
@@ -59,12 +59,13 @@ select * from usuario;
 
 -- Os IDs correspondem aos números das linhas.
 INSERT INTO linha (id, nome, cor) VALUES
-(1, 'Linha 1 - Azul', 'Azul'),
-(2, 'Linha 2 - Verde', 'Verde'),
-(3, 'Linha 3 - Vermelha', 'Vermelha'),
-(4, 'Linha 4 - Amarela', 'Amarela'),
-(5, 'Linha 5 - Lilás', 'Lilás'),
-(15, 'Linha 15 - Prata', 'Prata');
+(1, 'Linha 1 - Azul', '#0455A1'),
+(2, 'Linha 2 - Verde', '#007E5E'),
+(3, 'Linha 3 - Vermelha', '#EE372F'),
+(4, 'Linha 4 - Amarela', '#FFF000'),
+(5, 'Linha 5 - Lilás', '#9B3894'),
+(15, 'Linha 15 - Prata', '#858D90');
+
 
 -- Linha 1 - Azul
 -- Inclui Luz, Sé, Paraíso, Ana Rosa e Santa Cruz.
@@ -162,6 +163,7 @@ INSERT INTO estacao (nome, fk_linha) VALUES
 ('AACD - Servidor', 5),
 ('Hospital São Paulo', 5);
 
+-- Linha 15 - Prata
 INSERT INTO estacao (nome, fk_linha) VALUES
 ('Oratório', 15),
 ('São Lucas', 15),
@@ -176,10 +178,11 @@ INSERT INTO estacao (nome, fk_linha) VALUES
 
 SELECT
             linha.nome,
-            COUNT(*) AS quantidade
+            COUNT(*) AS quantidade,
+            linha.cor as cor
 FROM usuario
 JOIN linha ON usuario.fk_linha = linha.id
-        GROUP BY linha.nome
+        GROUP BY linha.nome, linha.cor
         ORDER BY quantidade DESC;
         
 select * from usuario;

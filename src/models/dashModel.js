@@ -10,10 +10,11 @@ function getLinhaFavorita() {
     var instrucaoSql = `
        SELECT
             linha.nome,
-            COUNT(*) AS quantidade
+            COUNT(*) AS quantidade,
+            linha.cor
         FROM usuario
         JOIN linha ON usuario.fk_linha = linha.id
-        GROUP BY linha.nome
+        GROUP BY linha.nome, linha.cor
         ORDER BY quantidade DESC;
     `;
 
