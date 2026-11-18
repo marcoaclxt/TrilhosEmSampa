@@ -61,7 +61,7 @@
             <div class="card">
                 <div class="card-top"></div>
                 <h4 class="card-label">Uso frequente</h4>
-                <div class="card-number">45%</div>
+                <div id="msgPercent" class="card-number"></div>
                 <p class="card-foot">Usam de <span id="msgFrequenciaMetro"></span> dias por semana</p>
             </div>
         </section>
@@ -383,21 +383,34 @@
 
             })
             .then(function (dados) {
-                console.log("oi", dados)
-                console.log("oi", dados[0].nome)
 
                 let frequenciaNomes = []
                 let frequenciaQtd = []
 
+                let contFrequenciaEscolhida = 0;
+                let contFrequenciaGlobal = 0;
+
                 for (let i = dados.length - 1; i >= 0; i--) {
                     frequenciaNomes.push(dados[i].frequenciaMetro)
                     frequenciaQtd.push(dados[i].quantidade)
+
+                    let qtd = Number(dados[i].quantidade)
+
+
+                    contFrequenciaGlobal += qtd
+
+                    if (dados[i].frequenciaMetro == sessionStorage.FREQUENCIA_USO) {
+                        contFrequenciaEscolhida += qtd
+
+                    }
                 }
 
                 graficoFrequencia.data.labels = frequenciaNomes
                 graficoFrequencia.data.datasets[0].data = frequenciaQtd
 
                 graficoFrequencia.update()
+
+                msgPercent.innerHTML = `${((contFrequenciaEscolhida / contFrequenciaGlobal) * 100).toFixed(2)}%`
             })
             .catch(function (erro) {
                 console.log(erro);
