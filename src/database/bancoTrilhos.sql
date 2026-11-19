@@ -198,3 +198,5 @@ CREATE USER 'trilhos'@'%' identified BY 'trilhos';
 GRANT ALL PRIVILEGES ON *.* TO 'trilhos'@'%';
 
 FLUSH PRIVILEGES;
+
+DROP USER 'trilhos'@'%';

@@ -179,6 +179,10 @@ body {
     color: #446ed8b2;
 }
 
+
+
+
+
 /* Seção específica solicitada: Por que os trilhos? / Meu ponto de partida */
 .whySection { padding: 36px 60px; }
 .whyNav { display:flex; justify-content:space-between; align-items:center; color:#6b7a8a; font-size:13px; }
@@ -329,3 +333,205 @@ body {
     .techCols { flex-direction:column; }
     .footerMasthead { font-size:48px; }
 }
+
+
+/* ============================================================
+   COMPLEMENTO DA HOME — regras isoladas das seções preexistentes.
+   Todo o CSS original permanece acima, sem modificações.
+   ============================================================ */
+.homeMap,
+.homeWindow,
+.homeDiscover,
+.homeProject,
+.homeFooter {
+    box-sizing: border-box;
+    --home-blue: #234fc1;
+    --home-ink: #1c2d38;
+    --home-muted: #74828a;
+    --home-paper: #f5f4ee;
+    --home-space: clamp(24px, 4.5vw, 76px);
+    font-family: var(--fonte-texto);
+    color: var(--home-ink);
+}
+.homeMap *, .homeWindow *, .homeDiscover *, .homeProject *, .homeFooter * {
+    box-sizing: border-box;
+}
+.homeLabel, .homeSectionBar, .homeCardCategory,
+.homeCardMetric p, .homeProjectTags, .homePhotoCaption,
+.homeFooterTop > p, .homeFooterBottom {
+    font-family: var(--fonte-detalhe);
+}
+.homeLabel {
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1.6;
+    letter-spacing: 1.8px;
+}
+.homeMap {
+    background: #e7eef3;
+    padding: 36px var(--home-space);
+    display: grid;
+    grid-template-columns: 29% minmax(0, 1fr);
+    align-items: center;
+    gap: 30px;
+}
+.homeMapIntro { max-width: 245px; }
+.homeMapIntro h2 {
+    font-family: var(--fonte-titulo);
+    font-size: 29px;
+    line-height: 1.05;
+    margin: 7px 0;
+}
+.homeMapIntro > p:last-child {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--home-muted);
+}
+.homeMapGraphic { margin: 0; min-width: 0; }
+.homeMapGraphic svg { width: 100%; height: auto; display: block; }
+.homeMapGraphic figcaption {
+    font: 8px/1.6 var(--fonte-detalhe);
+    letter-spacing: 1px;
+    text-align: right;
+    color: #7890a1;
+}
+.homeWindow {
+    position: relative;
+    isolation: isolate;
+    min-height: 520px;
+    margin-top: 72px;
+    padding: 48px var(--home-space) 64px;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: #233c4b url('../assets/estacaoSumareImg.jpg') center / cover no-repeat;
+}
+.homeWindow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(90deg, rgba(12, 30, 45, .82), rgba(12, 30, 45, .35) 65%, rgba(12, 30, 45, .15));
+}
+.homeWindowContent { max-width: 540px; }
+.homeWindow h2 {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(44px, 5.4vw, 76px);
+    line-height: 1.04;
+    margin: 26px 0 22px;
+    letter-spacing: -.8px;
+}
+.homeWindowText { max-width: 265px; font-size: 13px; line-height: 1.65; color: #e0e7ec; }
+.homeButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 26px;
+    min-width: 220px;
+    margin-top: 26px;
+    padding: 5px 5px 5px 16px;
+    background: var(--home-paper);
+    color: #173668;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: .6px;
+}
+.homeButton span {
+    background: var(--home-blue);
+    color: #fff;
+    width: 31px;
+    height: 31px;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+}
+.homePhotoCaption {
+    position: absolute;
+    right: var(--home-space);
+    bottom: 22px;
+    left: var(--home-space);
+    text-align: right;
+    font-size: 8px;
+    line-height: 1.5;
+    letter-spacing: 1px;
+    color: #f0f3f5;
+}
+.homeDiscover { padding: 68px var(--home-space) 74px; background: var(--home-paper); }
+.homeSectionBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #d4dbdc;
+    font-size: 9px;
+    letter-spacing: .8px;
+    line-height: 1.5;
+}
+.homeSectionBar p:first-child { color: var(--home-blue); }
+.homeDiscoverHeading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 32px;
+    margin: 30px 0 34px;
+}
+.homeDiscoverHeading h2, .homeProject h2 {
+    font-family: var(--fonte-titulo);
+    font-size: clamp(34px, 4vw, 54px);
+    line-height: 1.1;
+    letter-spacing: -.5px;
+}
+.homeDiscoverHeading > p {
+    max-width: 250px;
+    color: var(--home-muted);
+    font-size: 12px;
+    line-height: 1.65;
+}
+.homeDiscoverCards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.homeDiscoverCard { background: #fff; padding: 25px 24px 28px; display: flex; flex-direction: column; }
+.homeCardCategory { font-size: 10px; line-height: 1.5; color: var(--home-blue); }
+.homeCardMetric { display: flex; align-items: flex-end; gap: 16px; margin: 20px 0 24px; color: var(--home-blue); }
+.homeCardMetric > span { font-family: var(--fonte-titulo); font-size: 62px; line-height: 1; }
+.homeCardMetric p { padding-bottom: 3px; font-size: 9px; line-height: 1.5; letter-spacing: .5px; }
+.homeDiscoverCard h3 { font-family: var(--fonte-titulo); font-size: 26px; line-height: 1.12; margin-bottom: 16px; }
+.homeCardText, .homeCardDetails > p { font-size: 12px; line-height: 1.7; color: var(--home-muted); }
+.homeCardText { margin-bottom: 24px; }
+.homeCardDetails { margin-top: auto; }
+.homeCardDetails summary { cursor: pointer; list-style: none; font-size: 9px; font-weight: 700; line-height: 1.6; color: var(--home-blue); }
+.homeCardDetails summary::-webkit-details-marker, .homeProject summary::-webkit-details-marker { display: none; }
+.homeCardDetails[open] summary { margin-bottom: 12px; }
+.homeProject { background: #e7eef3; padding: 60px var(--home-space); display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+.homeProject h2 { margin: 20px 0; font-size: clamp(32px, 3.5vw, 46px); }
+.homeProjectTags { list-style: none; display: flex; flex-wrap: wrap; gap: 9px; padding: 0; margin: 0; }
+.homeProjectTags li { border: 1px solid #c8d5df; padding: 6px 9px; font-size: 8px; color: #6b8397; }
+.homeProjectContent { font-size: 12px; line-height: 1.8; color: #6c8294; }
+.homeProjectContent > p { margin-bottom: 20px; }
+.homeProject details { border-bottom: 1px solid #d1dee7; }
+.homeProject summary { position: relative; list-style: none; cursor: pointer; padding: 12px 30px 12px 0; color: #344d62; font-size: 11px; }
+.homeProject summary::after { content: '+'; position: absolute; right: 0; top: 8px; font-size: 20px; color: var(--home-blue); }
+.homeProject details[open] summary::after { content: '−'; }
+.homeProject details p { padding-bottom: 16px; }
+.homeProject a { color: var(--home-blue); text-underline-offset: 3px; }
+.homeFooter { background: #11285e; padding: 42px var(--home-space) 22px; color: #e7edff; }
+.homeFooterTop { display: flex; align-items: center; gap: 25px; padding-bottom: 26px; border-bottom: 1px solid #304472; }
+.homeMetroMark { flex-shrink: 0; border: 2px solid currentColor; padding: 3px 6px; font-size: 22px; line-height: 1; font-weight: 700; }
+.homeFooterTop > p { color: #afbdd9; font-size: 9px; line-height: 1.7; letter-spacing: .6px; }
+.homeFooterTop > p span { font-family: var(--fonte-texto); letter-spacing: 0; }
+.homeFooterMiddle { display: flex; justify-content: space-between; gap: 24px; padding: 25px 0 42px; font-size: 11px; line-height: 1.6; color: #b6c7ea; }
+.homeFooterMiddle nav { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 28px; }
+.homeFooter a { color: #d1dcf5; text-decoration: none; font-size: 10px; }
+.homeFooterName { font-family: var(--fonte-titulo); font-size: clamp(24px, 11.15vw, 190px); line-height: 1.2; letter-spacing: -.035em; white-space: nowrap; }
+.homeFooterName span { color: #80a4ff; }
+.homeFooterBottom { display: flex; justify-content: space-between; gap: 25px; border-top: 1px solid #304472; margin-top: 24px; padding-top: 18px; color: #98aed7; font-size: 8px; line-height: 1.6; }
+.homeFooterBottom p:last-child { text-align: right; }
+.homeButton:hover { background: #dce5ff; }
+.homeFooter a:hover { text-decoration: underline; }
+.homeWindow a:focus-visible, .homeDiscover summary:focus-visible,
+.homeProject summary:focus-visible, .homeProject a:focus-visible, .homeFooter a:focus-visible {
+    outline: 3px solid #83a8ff;
+    outline-offset: 5px;
+}
+.homeDiscover, .homeProject { scroll-margin-top: 24px; }
+
