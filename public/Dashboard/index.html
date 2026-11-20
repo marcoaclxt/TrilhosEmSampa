@@ -12,6 +12,10 @@
 
 </head>
 
+
+
+
+
 <body>
 
     <header class="hero">
@@ -41,15 +45,6 @@
             <circle cx="700" cy="40" r="6" fill="#7ea0ff" />
         </svg>
     </header>
-
-    <!-- small back button to return to Home (href to be added) -->
-    <div class="container">
-        <a class="back-button" href="#" aria-label="Voltar para Home">
-            <svg width="18" height="12" viewBox="0 0 18 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
-                <path d="M0.5 6H17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M6.5 11L0.5 6L6.5 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </a>
 
     <main class="container">
         <section class="stats-row">
@@ -128,315 +123,315 @@
 <script>
 
 
-
-    function commonOptions() {
-        return {
-            indexAxis: "y",
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    display: false
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: true,
-                    ticks: {
-                        precision: 0
+    /*
+        function commonOptions() {
+            return {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
                     }
                 }
-            }
+            };
+        }
+    
+        function createChartBar(id, dados, opcoes) {
+            var canvas = document.getElementById(id);
+    
+            return new Chart(canvas, {
+                type: "bar",
+                data: dados,
+                options: opcoes
+            });
+        }
+    
+        function createChartPie(id, dados, opcoes) {
+            var canvas = document.getElementById(id);
+    
+            return new Chart(canvas, {
+                type: "pie",
+                data: dados,
+                options: opcoes
+            });
+        }
+    
+    
+        var graficoLinhas = null;
+        var graficoEstacoes = null;
+        var graficoFrotas = null;
+        var graficoFrequencia = null;
+    
+        var linhasData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Quantidade de linhas",
+                    data: [],
+                    backgroundColor: '#204fc1'
+                }]
         };
-    }
-
-    function createChartBar(id, dados, opcoes) {
-        var canvas = document.getElementById(id);
-
-        return new Chart(canvas, {
-            type: "bar",
-            data: dados,
-            options: opcoes
+    
+        var estacoesData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Quantidade de estações",
+                    data: [],
+                    backgroundColor: '#204fc1'
+                }]
+        };
+    
+        var frotasData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Quantidade de Frotas",
+                    data: [],
+                    backgroundColor: '#204fc1'
+                }]
+        };
+    
+        var frequenciaData = {
+            labels: [],
+            datasets: [
+                {
+                    label: "Frequência do usuário",
+                    data: [],
+                    backgroundColor: '#204fc1'
+                }]
+        };
+    
+    
+        window.addEventListener("load", function () {
+            graficoLinhas = createChartBar(
+                "chart-linhas",
+                linhasData,
+                commonOptions()
+            );
+    
+            graficoEstacoes = createChartBar(
+                "chart-estacoes",
+                estacoesData,
+                commonOptions()
+            );
+    
+            graficoFrotas = createChartPie(
+                "chart-frotas",
+                frotasData,
+                commonOptions()
+            );
+    
+            graficoFrequencia = createChartPie(
+                "chart-frequencia",
+                frequenciaData,
+                commonOptions()
+            );
+    
+            carregar();
+    
+            setInterval(carregar, 20000);
         });
-    }
-
-    function createChartPie(id, dados, opcoes) {
-        var canvas = document.getElementById(id);
-
-        return new Chart(canvas, {
-            type: "pie",
-            data: dados,
-            options: opcoes
-        });
-    }
-
-
-    var graficoLinhas = null;
-    var graficoEstacoes = null;
-    var graficoFrotas = null;
-    var graficoFrequencia = null;
-
-    var linhasData = {
-        labels: [],
-        datasets: [
-            {
-                label: "Quantidade de linhas",
-                data: [],
-                backgroundColor: '#204fc1'
-            }]
-    };
-
-    var estacoesData = {
-        labels: [],
-        datasets: [
-            {
-                label: "Quantidade de estações",
-                data: [],
-                backgroundColor: '#204fc1'
-            }]
-    };
-
-    var frotasData = {
-        labels: [],
-        datasets: [
-            {
-                label: "Quantidade de Frotas",
-                data: [],
-                backgroundColor: '#204fc1'
-            }]
-    };
-
-    var frequenciaData = {
-        labels: [],
-        datasets: [
-            {
-                label: "Frequência do usuário",
-                data: [],
-                backgroundColor: '#204fc1'
-            }]
-    };
-
-
-    window.addEventListener("load", function () {
-        graficoLinhas = createChartBar(
-            "chart-linhas",
-            linhasData,
-            commonOptions()
-        );
-
-        graficoEstacoes = createChartBar(
-            "chart-estacoes",
-            estacoesData,
-            commonOptions()
-        );
-
-        graficoFrotas = createChartPie(
-            "chart-frotas",
-            frotasData,
-            commonOptions()
-        );
-
-        graficoFrequencia = createChartPie(
-            "chart-frequencia",
-            frequenciaData,
-            commonOptions()
-        );
-
-        carregar();
-
-        setInterval(carregar, 20000);
-    });
-
-
-    function carregar() {
-
-        fetch(`/dashboard/getLinhaFavorita`)
-            .then(function (resposta) {
-
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Erro ao buscar total de linhas.");
-                }
-
-            })
-            .then(function (dados) {
-
-                let linhaFavoritaNomes = []
-                let linhaFavoritaQtd = []
-                let linhaFavoritaCor = []
-
-                let contCadastros = 0
-
-                for (let i = dados.length - 1; i >= 0; i--) {
-                    linhaFavoritaNomes.push(dados[i].nome)
-                    linhaFavoritaQtd.push(dados[i].quantidade)
-                    linhaFavoritaCor.push(dados[i].cor)
-                    contCadastros++
-                }
-                console.log(linhaFavoritaQtd)
-
-
-                graficoLinhas.data.labels = linhaFavoritaNomes
-                graficoLinhas.data.datasets[0].data = linhaFavoritaQtd
-                graficoLinhas.data.datasets[0].backgroundColor = linhaFavoritaCor
-
-                graficoLinhas.update()
-
-                numeroCadastros.innerHTML = `${contCadastros}`
-                msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
-                msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
-
-                if (sessionStorage.LINHA_FAVORITA == 1) {
-                    msgLinhaFavorita.innerHTML += ` · AZUL`
-
-                } else if (sessionStorage.LINHA_FAVORITA == 2) {
-                    msgLinhaFavorita.innerHTML += ` · VERDE`
-
-                } else if (sessionStorage.LINHA_FAVORITA == 3) {
-                    msgLinhaFavorita.innerHTML += ` · VERMELHA`
-
-                } else if (sessionStorage.LINHA_FAVORITA == 4) {
-                    msgLinhaFavorita.innerHTML += ` · AMARELA`
-
-                } else if (sessionStorage.LINHA_FAVORITA == 5) {
-                    msgLinhaFavorita.innerHTML += ` · LILAS`
-                }
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            });
-
-
-        /* Estação */
-
-        fetch(`/dashboard/getEstacaoFavorita`)
-            .then(function (resposta) {
-
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Erro ao buscar total de estações.");
-                }
-
-            })
-            .then(function (dados) {
-
-                let estacaoFavoritaNomes = []
-                let estacaoFavoritaQtd = []
-
-                for (let i = dados.length - 1; i >= 0; i--) {
-                    estacaoFavoritaNomes.push(dados[i].nome)
-                    estacaoFavoritaQtd.push(dados[i].quantidade)
-                }
-
-                graficoEstacoes.data.labels = estacaoFavoritaNomes
-                graficoEstacoes.data.datasets[0].data = estacaoFavoritaQtd
-
-                graficoEstacoes.update()
-
-
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            });
-
-
-
-        /* Frota */
-
-        fetch(`/dashboard/getFrotaFavorita`)
-            .then(function (resposta) {
-
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Erro ao buscar total de frotas.");
-                }
-
-            })
-            .then(function (dados) {
-
-                //console.log("oi", dados)
-                //console.log("oi", dados[0].nome)
-
-                let frotaFavoritaNomes = []
-                let frotaFavoritaQtd = []
-
-                for (let i = dados.length - 1; i >= 0; i--) {
-                    frotaFavoritaNomes.push(dados[i].nome)
-                    frotaFavoritaQtd.push(dados[i].quantidade)
-                }
-
-                graficoFrotas.data.labels = frotaFavoritaNomes
-                graficoFrotas.data.datasets[0].data = frotaFavoritaQtd
-
-                graficoFrotas.update()
-
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            });
-
-
-        /* getFrequenciaMetro */
-
-        fetch(`/dashboard/getFrequenciaMetro`)
-            .then(function (resposta) {
-
-                if (resposta.ok) {
-                    return resposta.json();
-                } else {
-                    throw new Error("Erro ao buscar total de frequência.");
-                }
-
-            })
-            .then(function (dados) {
-
-                let frequenciaNomes = []
-                let frequenciaQtd = []
-
-                let contFrequenciaEscolhida = 0;
-                let contFrequenciaGlobal = 0;
-
-                for (let i = dados.length - 1; i >= 0; i--) {
-                    frequenciaNomes.push(dados[i].frequenciaMetro)
-                    frequenciaQtd.push(dados[i].quantidade)
-
-                    let qtd = Number(dados[i].quantidade)
-
-
-                    contFrequenciaGlobal += qtd
-
-                    if (dados[i].frequenciaMetro == sessionStorage.FREQUENCIA_USO) {
-                        contFrequenciaEscolhida += qtd
-
+    
+    
+        function carregar() {
+    
+            fetch(`/dashboard/getLinhaFavorita`)
+                .then(function (resposta) {
+    
+                    if (resposta.ok) {
+                        return resposta.json();
+                    } else {
+                        throw new Error("Erro ao buscar total de linhas.");
                     }
-                }
+    
+                })
+                .then(function (dados) {
+    
+                    let linhaFavoritaNomes = []
+                    let linhaFavoritaQtd = []
+                    let linhaFavoritaCor = []
+    
+                    let contCadastros = 0
+    
+                    for (let i = dados.length - 1; i >= 0; i--) {
+                        linhaFavoritaNomes.push(dados[i].nome)
+                        linhaFavoritaQtd.push(dados[i].quantidade)
+                        linhaFavoritaCor.push(dados[i].cor)
+                        contCadastros++
+                    }
+                    console.log(linhaFavoritaQtd)
+    
+    
+                    graficoLinhas.data.labels = linhaFavoritaNomes
+                    graficoLinhas.data.datasets[0].data = linhaFavoritaQtd
+                    graficoLinhas.data.datasets[0].backgroundColor = linhaFavoritaCor
+    
+                    graficoLinhas.update()
+    
+                    numeroCadastros.innerHTML = `${contCadastros}`
+                    msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
+                    msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
+    
+                    if (sessionStorage.LINHA_FAVORITA == 1) {
+                        msgLinhaFavorita.innerHTML += ` · AZUL`
+    
+                    } else if (sessionStorage.LINHA_FAVORITA == 2) {
+                        msgLinhaFavorita.innerHTML += ` · VERDE`
+    
+                    } else if (sessionStorage.LINHA_FAVORITA == 3) {
+                        msgLinhaFavorita.innerHTML += ` · VERMELHA`
+    
+                    } else if (sessionStorage.LINHA_FAVORITA == 4) {
+                        msgLinhaFavorita.innerHTML += ` · AMARELA`
+    
+                    } else if (sessionStorage.LINHA_FAVORITA == 5) {
+                        msgLinhaFavorita.innerHTML += ` · LILAS`
+                    }
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+    
+    
+            /* Estação */
+    /*
+            fetch(`/dashboard/getEstacaoFavorita`)
+                .then(function (resposta) {
+    
+                    if (resposta.ok) {
+                        return resposta.json();
+                    } else {
+                        throw new Error("Erro ao buscar total de estações.");
+                    }
+    
+                })
+                .then(function (dados) {
+    
+                    let estacaoFavoritaNomes = []
+                    let estacaoFavoritaQtd = []
+    
+                    for (let i = dados.length - 1; i >= 0; i--) {
+                        estacaoFavoritaNomes.push(dados[i].nome)
+                        estacaoFavoritaQtd.push(dados[i].quantidade)
+                    }
+    
+                    graficoEstacoes.data.labels = estacaoFavoritaNomes
+                    graficoEstacoes.data.datasets[0].data = estacaoFavoritaQtd
+    
+                    graficoEstacoes.update()
+    
+    
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+    
+    */
 
-                graficoFrequencia.data.labels = frequenciaNomes
-                graficoFrequencia.data.datasets[0].data = frequenciaQtd
-
-                graficoFrequencia.update()
-
-                msgPercent.innerHTML = `${((contFrequenciaEscolhida / contFrequenciaGlobal) * 100).toFixed(2)}%`
-            })
-            .catch(function (erro) {
-                console.log(erro);
-            });
-
-
-    }
-
-
-
-
+    /* Frota */
+    /*
+            fetch(`/dashboard/getFrotaFavorita`)
+                .then(function (resposta) {
+    
+                    if (resposta.ok) {
+                        return resposta.json();
+                    } else {
+                        throw new Error("Erro ao buscar total de frotas.");
+                    }
+    
+                })
+                .then(function (dados) {
+    
+                    //console.log("oi", dados)
+                    //console.log("oi", dados[0].nome)
+    
+                    let frotaFavoritaNomes = []
+                    let frotaFavoritaQtd = []
+    
+                    for (let i = dados.length - 1; i >= 0; i--) {
+                        frotaFavoritaNomes.push(dados[i].nome)
+                        frotaFavoritaQtd.push(dados[i].quantidade)
+                    }
+    
+                    graficoFrotas.data.labels = frotaFavoritaNomes
+                    graficoFrotas.data.datasets[0].data = frotaFavoritaQtd
+    
+                    graficoFrotas.update()
+    
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+    
+    
+    
+    
+            /* getFrequenciaMetro */
 
 
     /*
     
+            fetch(`/dashboard/getFrequenciaMetro`)
+                .then(function (resposta) {
+    
+                    if (resposta.ok) {
+                        return resposta.json();
+                    } else {
+                        throw new Error("Erro ao buscar total de frequência.");
+                    }
+    
+                })
+                .then(function (dados) {
+    
+                    let frequenciaNomes = []
+                    let frequenciaQtd = []
+    
+                    let contFrequenciaEscolhida = 0;
+                    let contFrequenciaGlobal = 0;
+    
+                    for (let i = dados.length - 1; i >= 0; i--) {
+                        frequenciaNomes.push(dados[i].frequenciaMetro)
+                        frequenciaQtd.push(dados[i].quantidade)
+    
+                        let qtd = Number(dados[i].quantidade)
     
     
+                        contFrequenciaGlobal += qtd
+    
+                        if (dados[i].frequenciaMetro == sessionStorage.FREQUENCIA_USO) {
+                            contFrequenciaEscolhida += qtd
+    
+                        }
+                    }
+    
+                    graficoFrequencia.data.labels = frequenciaNomes
+                    graficoFrequencia.data.datasets[0].data = frequenciaQtd
+    
+                    graficoFrequencia.update()
+    
+                    msgPercent.innerHTML = `${((contFrequenciaEscolhida / contFrequenciaGlobal) * 100).toFixed(2)}%`
+                })
+                .catch(function (erro) {
+                    console.log(erro);
+                });
+    
+    
+        }
+    
+    */
+
+
+    /*
         let proximaAtualizacao;
     
     
@@ -477,6 +472,13 @@
                 });
         }
     
+
+
+
+
+
+
+
         // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
         // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
         // A função *plotarGrafico* também invoca a função *atualizarGrafico*
@@ -507,8 +509,8 @@
             // Inserindo valores recebidos em estrutura para plotar o gráfico
             for (i = 0; i < resposta.length; i++) {
                 var registro = resposta[i];
-                labels.push(registro.momento_grafico);
-                dados.datasets[0].data.push(registro.temperatura);
+                labels.push(registro.nomw);
+                dados.datasets[0].data.push(registro.quantidade);
             }
     
             console.log('----------------------------------------------')
@@ -533,6 +535,12 @@
     
             setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
         }
+
+
+
+
+
+
     
     
         // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
@@ -592,5 +600,250 @@
                 });
     
         }
-    */
+
+        */
+
+
+
+
+
+
+    window.onload = function () {
+        obterDadosGrafico("linhas")
+        obterDadosGrafico("estacoes")
+        obterDadosGrafico("frotas")
+        obterDadosGrafico("frequencia")
+    }
+
+    let proximaAtualizacao;
+
+
+    // O gráfico é construído com três funções:
+    // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
+    // 2. plotarGrafico -> Monta o gráfico com os dados trazidos e exibe em tela
+    // 3. atualizarGrafico -> Atualiza o gráfico, trazendo novamente dados do Banco
+
+    // Esta função *obterDadosGrafico* busca os últimos dados inseridos em tabela de medidas.
+    // para, quando carregar o gráfico da primeira vez, já trazer com vários dados.
+    // A função *obterDadosGrafico* também invoca a função *plotarGrafico*
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function obterDadosGrafico(idGrafico) {
+
+        let rota = "";
+
+        if(idGrafico == "linhas") {
+            rota = "/dashboard/getLinhaFavorita"
+        } else if (idGrafico == "estacoes") {            
+            rota = "/dashboard/getEstacaoFavorita"
+        }  else if (idGrafico == "frotas") {            
+            rota = "/dashboard/getFrotaFavorita"
+        }  else if (idGrafico == "frequencia") {            
+            rota = "/dashboard/getFrequenciaMetro"
+        }
+
+        if (proximaAtualizacao != undefined) {
+            clearTimeout(proximaAtualizacao);
+        }
+
+        fetch(rota, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                    plotarGrafico(resposta, idGrafico);
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+    }
+
+
+
+
+
+
+
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+    function plotarGrafico(resposta, idGrafico) {
+
+        console.log('iniciando plotagem do gráfico...');
+
+        // Criando estrutura para plotar gráfico - labels
+        let labels = [];
+
+        // Criando estrutura para plotar gráfico - dados
+        let dados = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Quantidade de usuarios',
+                    data: [],
+                    backgroundColor: []
+                }]
+        };
+
+        console.log('----------------------------------------------')
+        console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
+        console.log(resposta)
+
+        // Inserindo valores recebidos em estrutura para plotar o gráfico
+        for (i = 0; i < resposta.length; i++) {
+
+            var registro = resposta[i];
+
+            
+            dados.datasets[0].data.push(Number(registro.quantidade));
+            
+            
+            if(idGrafico == "linhas") {
+
+                labels.push(registro.nome);
+
+                dados.datasets[0].backgroundColor.push(registro.cor);
+
+            } else if(idGrafico == "estacoes") {
+
+                labels.push(registro.nome);
+                dados.datasets[0].backgroundColor.push("#234FC1");
+
+            } else if(idGrafico == "frotas") {
+
+                labels.push(registro.nome);
+                dados.datasets[0].backgroundColor.push("#234FC1");
+
+            }  else if(idGrafico == "frequencia") {
+
+                labels.push(registro.frequenciaMetro)
+                dados.datasets[0].backgroundColor.push("#234FC1");
+
+            } else {
+
+
+            }
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labels)
+        console.log('Dados:')
+        console.log(dados.datasets)
+        console.log('----------------------------------------------')
+
+        // Criando estrutura para plotar gráfico - config
+        var config = {
+            type: "bar",
+            data: dados,
+            options: {
+                indexAxis: "y",
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
+            }
+        };
+
+        if(idGrafico == "frotas" || idGrafico == "frequencia") {
+            config.type = "pie"
+
+            config.options.plugins.legend.display = true
+            config.options.plugins.legend.position = "bottom"
+        } 
+
+
+        // Adicionando gráfico criado em div na tela
+        let myChart = new Chart(
+            document.getElementById(`chart-${idGrafico}`),
+            config
+        );
+
+        //setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+    }
+
+
+
+
+
+
+
+
+    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+    // buscando a última medida inserida em tabela contendo as capturas, 
+
+    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+    //     Para ajustar o "select", ajuste o comando sql em src/models
+    function atualizarGrafico(idAquario, dados, myChart) {
+
+
+
+        fetch(`/medidas/tempo-real/${idAquario}`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (novoRegistro) {
+
+                    obterdados(idAquario);
+                    // alertar(novoRegistro, idAquario);
+                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+                    console.log(`Dados atuais do gráfico:`);
+                    console.log(dados);
+
+                    let avisoCaptura = document.getElementById(`avisoCaptura${idAquario}`)
+                    avisoCaptura.innerHTML = ""
+
+
+                    if (novoRegistro[0].momento_grafico == dados.labels[dados.labels.length - 1]) {
+                        console.log("---------------------------------------------------------------")
+                        console.log("Como não há dados novos para captura, o gráfico não atualizará.")
+                        avisoCaptura.innerHTML = "<i class='fa-solid fa-triangle-exclamation'></i> Foi trazido o dado mais atual capturado pelo sensor. <br> Como não há dados novos a exibir, o gráfico não atualizará."
+                        console.log("Horário do novo dado capturado:")
+                        console.log(novoRegistro[0].momento_grafico)
+                        console.log("Horário do último dado capturado:")
+                        console.log(dados.labels[dados.labels.length - 1])
+                        console.log("---------------------------------------------------------------")
+                    } else {
+                        // tirando e colocando valores no gráfico
+                        dados.labels.shift(); // apagar o primeiro
+                        dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
+
+                        dados.datasets[0].data.shift();  // apagar o primeiro de temperatura
+                        dados.datasets[0].data.push(novoRegistro[0].temperatura); // incluir uma nova medida de temperatura
+
+                        myChart.update();
+                    }
+
+                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    }
 </script>
