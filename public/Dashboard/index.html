@@ -633,13 +633,13 @@
 
         let rota = "";
 
-        if(idGrafico == "linhas") {
+        if (idGrafico == "linhas") {
             rota = "/dashboard/getLinhaFavorita"
-        } else if (idGrafico == "estacoes") {            
+        } else if (idGrafico == "estacoes") {
             rota = "/dashboard/getEstacaoFavorita"
-        }  else if (idGrafico == "frotas") {            
+        } else if (idGrafico == "frotas") {
             rota = "/dashboard/getFrotaFavorita"
-        }  else if (idGrafico == "frequencia") {            
+        } else if (idGrafico == "frequencia") {
             rota = "/dashboard/getFrequenciaMetro"
         }
 
@@ -676,6 +676,7 @@
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
     function plotarGrafico(resposta, idGrafico) {
+        let contCadastros = 0
 
         console.log('iniciando plotagem do gráfico...');
 
@@ -697,32 +698,75 @@
         console.log('Estes dados foram recebidos pela funcao "obterDadosGrafico" e passados para "plotarGrafico":')
         console.log(resposta)
 
+
+        let contFrequenciaEscolhida = 0;
+        let contFrequenciaGlobal = 0;
+
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
 
+            contCadastros++
             var registro = resposta[i];
+            console.log("OIIIIIIII",registro)
 
-            
+
+
+            numeroCadastros.innerHTML = `${contCadastros}`
+            msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
+
+            msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
+
+            if (sessionStorage.LINHA_FAVORITA == 1) {
+                msgLinhaFavorita.innerHTML += ` · AZUL`
+
+            } else if (sessionStorage.LINHA_FAVORITA == 2) {
+                msgLinhaFavorita.innerHTML += ` · VERDE`
+
+            } else if (sessionStorage.LINHA_FAVORITA == 3) {
+                msgLinhaFavorita.innerHTML += ` · VERMELHA`
+
+            } else if (sessionStorage.LINHA_FAVORITA == 4) {
+                msgLinhaFavorita.innerHTML += ` · AMARELA`
+
+            } else if (sessionStorage.LINHA_FAVORITA == 5) {
+                msgLinhaFavorita.innerHTML += ` · LILAS`
+            }
+
+
+
             dados.datasets[0].data.push(Number(registro.quantidade));
-            
-            
-            if(idGrafico == "linhas") {
+
+
+            if (idGrafico == "linhas") {
 
                 labels.push(registro.nome);
 
                 dados.datasets[0].backgroundColor.push(registro.cor);
 
-            } else if(idGrafico == "estacoes") {
+            } else if (idGrafico == "estacoes") {
 
                 labels.push(registro.nome);
                 dados.datasets[0].backgroundColor.push("#234FC1");
 
-            } else if(idGrafico == "frotas") {
+            } else if (idGrafico == "frotas") {
 
                 labels.push(registro.nome);
                 dados.datasets[0].backgroundColor.push("#234FC1");
 
-            }  else if(idGrafico == "frequencia") {
+            } else if (idGrafico == "frequencia") {
+
+                let qtd = Number(registro.quantidade)
+
+
+                contFrequenciaGlobal += qtd
+
+                if (registro.frequenciaMetro == sessionStorage.FREQUENCIA_USO) {
+                    contFrequenciaEscolhida += qtd
+
+                }
+
+
+                msgPercent.innerHTML = `${((contFrequenciaEscolhida / contFrequenciaGlobal) * 100).toFixed(2)}%`
 
                 labels.push(registro.frequenciaMetro)
                 dados.datasets[0].backgroundColor.push("#234FC1");
@@ -765,12 +809,12 @@
             }
         };
 
-        if(idGrafico == "frotas" || idGrafico == "frequencia") {
+        if (idGrafico == "frotas" || idGrafico == "frequencia") {
             config.type = "pie"
 
             config.options.plugins.legend.display = true
             config.options.plugins.legend.position = "bottom"
-        } 
+        }
 
 
         // Adicionando gráfico criado em div na tela
