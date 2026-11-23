@@ -15,7 +15,7 @@ function getLinhaFavorita() {
         FROM usuario
         JOIN linha ON usuario.fk_linha = linha.id
         GROUP BY linha.nome, linha.cor
-        ORDER BY quantidade DESC;
+        ORDER BY quantidade ASC;
     `;
 
     return database.executar(instrucaoSql);
@@ -32,7 +32,8 @@ function getEstacaoFavorita() {
             count(e.id) as quantidade
         FROM usuario u 
         JOIN estacao e on u.estacaoFavorita = e.id 
-        GROUP BY e.nome;
+        GROUP BY e.nome
+        ORDER BY quantidade ASC;
     `;
 
     return database.executar(instrucaoSql);

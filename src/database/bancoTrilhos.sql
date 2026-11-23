@@ -193,6 +193,7 @@ select e.nome, count(e.id) from usuario u join estacao e on u.estacaoFavorita = 
 select f.nome, count(f.id) from usuario u join frota f on u.frotaFavorita = f.id group by f.nome;
 
 
+
 CREATE USER 'trilhos'@'%' identified BY 'trilhos';
 
 GRANT ALL PRIVILEGES ON *.* TO 'trilhos'@'%';
