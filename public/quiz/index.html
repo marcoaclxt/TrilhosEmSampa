@@ -16,7 +16,7 @@
             <img src="../assets/logoMetro.png" alt="Metrô de São Paulo">
         </a>
 
-        <p class="dashboard-sidebar-caption">ÁREA DO USUÁRIO</p>
+        <p class="dashboard-sidebar-caption"></p>
 
         <nav class="dashboard-sidebar-nav" aria-label="Navegação principal">
             <a href="../Dashboard/index.html">
@@ -284,6 +284,22 @@
             }
         }
 
+
+
+        function enviar() {
+            fetch('/quiz/enviar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    idUsuarioServer: sessionStorage.ID_USUARIO,
+                    pontosServer: sessionStorage.PONTOS_QUESTIONARIO,
+
+                })
+            }).catch(function (erro) {
+                console.log('#ERRO:', erro);
+            });
+        }
+
         function finalizarJogo() {
             let textoParaMensagemFinal = null
             let classComCoresParaMensagemFinal = null
@@ -313,6 +329,11 @@
             btnProx.disabled = true
             btnSubmeter.disabled = true
             btnTentarNovamente.disabled = false
+
+            sessionStorage.PONTOS_QUESTIONARIO = Math.round((porcentagemFinalDeAcertos) * 100);
+
+            enviar()
+            
         }
     </script>
 </body>

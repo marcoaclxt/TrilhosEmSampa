@@ -21,4 +21,8 @@ router.get("/getFrequenciaMetro", function (req, res) {
     dashController.getFrequenciaMetro(req, res);
 });
 
+router.post("/quiz/enviar", function (req, res) {
+    dashController.postQuiz(req, res);
+});
+
 module.exports = router;

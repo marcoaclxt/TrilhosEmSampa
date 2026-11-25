@@ -41,8 +41,19 @@ CREATE TABLE usuario (
 	FOREIGN KEY (fk_linha) REFERENCES linha(id)
 );
 
+CREATE TABLE questionario (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    pontos INT,
+    dt_questionario DATETIME DEFAULT CURRENT_TIMESTAMP,
+    
+    fk_usuario INT,
+    FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+);
+
 -- getUsersQtd
-SELECT count(id) from usuario;
+SELECT 
+	COUNT(id) 
+from usuario;
 
 -- getLinhaFavorita
 SELECT

@@ -94,7 +94,7 @@
 
             <div class="card">
                 <div class="card-top"></div>
-                <h4 class="card-label">Linha favorita</h4>
+                <h4 class="card-label">Sua linha favorita</h4>
                 <div id="msgLinhaFavorita" class="card-number"></div>
                 <p class="card-foot">42 de 120 pessoas</p>
             </div>
@@ -257,13 +257,8 @@
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
 
-            contCadastros++
             var registro = resposta[i];
-            console.log("OIIIIIIII", registro)
 
-
-
-            numeroCadastros.innerHTML = `${contCadastros}`
             msgLinhaFavorita.innerHTML = `${sessionStorage.LINHA_FAVORITA}`
 
             msgFrequenciaMetro.innerHTML = `${sessionStorage.FREQUENCIA_USO}`
@@ -290,6 +285,8 @@
 
 
             if (idGrafico == "linhas") {
+                contCadastros = contCadastros + registro.quantidade
+                numeroCadastros.innerHTML = `${contCadastros}`
 
                 labels.push(registro.nome);
 
