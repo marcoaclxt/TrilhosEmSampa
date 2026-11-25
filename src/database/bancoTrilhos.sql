@@ -49,7 +49,25 @@ CREATE TABLE questionario (
     fk_usuario INT,
     FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
 );
-
+select * from questionario;
+SELECT 
+    nome, 
+    pontos AS maior_pontuacao, 
+    dt_questionario
+FROM (
+    SELECT 
+        u.nome, 
+        q.pontos, 
+        q.dt_questionario,
+        ROW_NUMBER() OVER (
+            PARTITION BY u.id 
+            ORDER BY q.pontos DESC, q.dt_questionario DESC
+        ) AS rn
+    FROM questionario q
+    JOIN usuario u ON u.id = q.fk_usuario
+) AS ranking
+WHERE rn = 1
+ORDER BY maior_pontuacao DESC;
 -- getUsersQtd
 SELECT 
 	COUNT(id) 

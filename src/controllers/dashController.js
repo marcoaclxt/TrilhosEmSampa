@@ -54,7 +54,24 @@ function postQuiz(req, res) {
         });
 }
 
+function getQuizPoints(req, res) {
+    var idUsuario = req.body.idUsuarioServer;
+
+    dashModel.getQuizPoints(idUsuario)
+        .then((resultado) => {
+            res.status(201).json(resultado);
+        }
+        ).catch((erro) => {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o get do Quiz! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
-    getLinhaFavorita, getEstacaoFavorita, getFrotaFavorita, getFrequenciaMetro, postQuiz
+    getLinhaFavorita, getEstacaoFavorita, getFrotaFavorita, getFrequenciaMetro, postQuiz, getQuizPoints
 
 }

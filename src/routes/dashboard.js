@@ -25,4 +25,8 @@ router.post("/quiz/enviar", function (req, res) {
     dashController.postQuiz(req, res);
 });
 
+router.post("/quiz/getPoints", function (req, res) {
+    dashController.getQuizPoints(req, res);
+});
+
 module.exports = router;

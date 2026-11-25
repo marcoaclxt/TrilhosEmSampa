@@ -67,7 +67,23 @@ function postQuiz(idUsuario, pontos) {
     // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
     //  e na ordem de inserção dos dados.
     var instrucaoSql = `
-        INSERT INTO questionario (pontos, fk_usuario) aquario VALUES (${pontos}, ${idUsuario});
+        INSERT INTO questionario (pontos, fk_usuario) VALUES (${pontos}, ${idUsuario});
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+function getQuizPoints(idUsuario) {
+    // Insira exatamente a query do banco aqui, lembrando da nomenclatura exata nos valores
+    //  e na ordem de inserção dos dados.
+    var instrucaoSql = `
+        SELECT 
+            u.nome, 
+            MAX(q.pontos) 
+        FROM questionario q
+        JOIN usuario u ON u.id = q.fk_usuario
+        WHERE u.id = ${idUsuario}
+        GROUP BY u.nome;
     `;
 
     return database.executar(instrucaoSql);
@@ -75,5 +91,5 @@ function postQuiz(idUsuario, pontos) {
 
 
 module.exports = {
-    getLinhaFavorita, getEstacaoFavorita, getFrotaFavorita, getFrequenciaMetro, postQuiz
+    getLinhaFavorita, getEstacaoFavorita, getFrotaFavorita, getFrequenciaMetro, postQuiz, getQuizPoints
 };

@@ -96,7 +96,8 @@
                 <div class="card-top"></div>
                 <h4 class="card-label">Sua linha favorita</h4>
                 <div id="msgLinhaFavorita" class="card-number"></div>
-                <p class="card-foot">42 de 120 pessoas</p>
+                <p class="card-foot"><span id="totalLinhaEscolhida"></span> de <span id="totalLinhaFavorita"></span>
+                    pessoas</p>
             </div>
 
             <div class="card">
@@ -181,6 +182,20 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
+
+    function getQuizPoints() {
+        fetch('/dashboard/quiz/getPoints', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                idUsuarioServer: sessionStorage.ID_USUARIO,
+
+            })
+        }).catch(function (erro) {
+            console.log('#ERRO:', erro);
+        });
+    }
+
     function obterDadosGrafico(idGrafico) {
 
         let rota = "";
@@ -253,6 +268,9 @@
 
         let contFrequenciaEscolhida = 0;
         let contFrequenciaGlobal = 0;
+        let contLinhaEscolhida = 0;
+
+        let linhaFav = ""
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
         for (i = 0; i < resposta.length; i++) {
@@ -265,30 +283,51 @@
 
             if (sessionStorage.LINHA_FAVORITA == 1) {
                 msgLinhaFavorita.innerHTML += ` · AZUL`
+                linhaFav = "Linha 1 - Azul"
 
             } else if (sessionStorage.LINHA_FAVORITA == 2) {
                 msgLinhaFavorita.innerHTML += ` · VERDE`
+                linhaFav = "Linha 2 - Verde"
 
             } else if (sessionStorage.LINHA_FAVORITA == 3) {
                 msgLinhaFavorita.innerHTML += ` · VERMELHA`
+                linhaFav = "Linha 3 - Vermelha"
 
             } else if (sessionStorage.LINHA_FAVORITA == 4) {
                 msgLinhaFavorita.innerHTML += ` · AMARELA`
+                linhaFav = "Linha 4 - Amarela"
 
             } else if (sessionStorage.LINHA_FAVORITA == 5) {
                 msgLinhaFavorita.innerHTML += ` · LILAS`
+                linhaFav = "Linha 5 - Lilás"
+            } else if (sessionStorage.LINHA_FAVORITA == 15) {
+                msgLinhaFavorita.innerHTML += ` · PRATA`
+                linhaFav = "Linha 15 - Prata"
             }
 
-
+            getQuizPoints()
 
             dados.datasets[0].data.push(Number(registro.quantidade));
 
 
             if (idGrafico == "linhas") {
+
                 contCadastros = contCadastros + registro.quantidade
-                numeroCadastros.innerHTML = `${contCadastros}`
+                totalLinhaFavorita.innerHTML = `${contCadastros}`
+
+                let qtdLinha = Number(registro.quantidade)
+
+                console.log(registro.nome)
+
+                if (registro.nome == linhaFav) {
+                    contLinhaEscolhida += qtdLinha
+
+                }
+
+                totalLinhaEscolhida.innerHTML = `${contLinhaEscolhida}`
 
                 labels.push(registro.nome);
+
 
                 dados.datasets[0].backgroundColor.push(registro.cor);
 
@@ -304,13 +343,13 @@
 
             } else if (idGrafico == "frequencia") {
 
-                let qtd = Number(registro.quantidade)
+                let qtdFrequencia = Number(registro.quantidade)
 
 
-                contFrequenciaGlobal += qtd
+                contFrequenciaGlobal += qtdFrequencia
 
                 if (registro.frequenciaMetro == sessionStorage.FREQUENCIA_USO) {
-                    contFrequenciaEscolhida += qtd
+                    contFrequenciaEscolhida += qtdFrequencia
 
                 }
 
