@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,43 @@
 </head>
 
 <body onload="onloadEsconder()">
+
+    <aside class="dashboard-sidebar" aria-label="Área do usuário">
+        <a class="dashboard-sidebar-logo" href="../Home/index.html" aria-label="Voltar ao site">
+            <img src="../assets/logoMetro.png" alt="Metrô de São Paulo">
+        </a>
+
+        <p class="dashboard-sidebar-caption">ÁREA DO USUÁRIO</p>
+
+        <nav class="dashboard-sidebar-nav" aria-label="Navegação principal">
+            <a href="../Dashboard/index.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 20V10h4v10M10 20V4h4v16M16 20v-7h4v7" />
+                </svg>
+                <span>Visão geral</span>
+            </a>
+
+            <a href="./index.html" aria-current="page">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="4" y="3" width="16" height="18" rx="1" />
+                    <path d="M9 8a3 3 0 0 1 6 0c0 2-3 2-3 4" />
+                    <circle cx="12" cy="16" r="0.5" />
+                </svg>
+                <span>Quiz dos trilhos</span>
+            </a>
+        </nav>
+
+        <div class="dashboard-sidebar-bottom">
+            <nav class="dashboard-sidebar-nav" aria-label="Retorno ao site">
+                <a href="../Home/index.html">
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M10 6l-6 6 6 6M4 12h16" />
+                    </svg>
+                    <span>Voltar ao site</span>
+                </a>
+            </nav>
+        </div>
+    </aside>
     <main class="quiz-root containerParadas">
         <div id="pontuacaoEJogo">
             <div class="quiz-header">
@@ -45,16 +83,22 @@
                 </div>
 
                 <div id="opcoes" class="flex-colunar padding-8 quiz-options">
-                    <label><input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" /> <span id="labelOpcaoUm"></span></label>
-                    <label><input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" /> <span id="labelOpcaoDois"></span></label>
-                    <label><input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" /> <span id="labelOpcaoTres"></span></label>
-                    <label><input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" /> <span id="labelOpcaoQuatro"></span></label>
+                    <label><input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                        <span id="labelOpcaoUm"></span></label>
+                    <label><input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                        <span id="labelOpcaoDois"></span></label>
+                    <label><input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                        <span id="labelOpcaoTres"></span></label>
+                    <label><input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                        <span id="labelOpcaoQuatro"></span></label>
                 </div>
 
                 <div id="botoes" class="flex-colunar padding-8 quiz-actions">
                     <button onclick="submeter()" id="btnSubmeter" class="btnSolid">Submeter resposta</button>
-                    <button onclick="avancar()" id="btnProx" class="btnOutline" disabled>Avançar para próxima questão</button>
-                    <button onclick="tentarNovamente()" id="btnTentarNovamente" class="btnSolid" disabled>Tentar novamente</button>
+                    <button onclick="avancar()" id="btnProx" class="btnOutline" disabled>Avançar para próxima
+                        questão</button>
+                    <button onclick="tentarNovamente()" id="btnTentarNovamente" class="btnSolid" disabled>Tentar
+                        novamente</button>
                 </div>
 
             </div>
@@ -85,6 +129,14 @@
                 pergunta: "Qual destes números é ímpar?",
                 alternativaA: "Dez",
                 alternativaB: "Doze",
+                alternativaC: "Oito",
+                alternativaD: "Onze",
+                alternativaCorreta: "alternativaD"
+            },
+            {
+                pergunta: "Teste",
+                alternativaA: "tes",
+                alternativaB: "te",
                 alternativaC: "Oito",
                 alternativaD: "Onze",
                 alternativaCorreta: "alternativaD"
