@@ -232,6 +232,9 @@
         let inputEstacao = iptEstacaoFavorita.value;
         let inputFrota = iptFrotaFavorita.value;
 
+        let posArroba = inputEmail.indexOf("@");
+        let posCom = inputEmail.indexOf(".");
+
         let inputFrequencia = "";
 
         if (iptFreqAlta.checked) {
@@ -247,7 +250,11 @@
 
         if (inputLinhaFavorita == 0 || inputEstacao == "" || inputFrota == "" || inputFrequencia == "") {
             alert("Você precisa preencher todos os campos para se cadastrar!")
-        } else {
+        } else if(posCom < posArroba) {
+            alert("Verifique se digitou o email corretamente.")
+        } else if(inputSenha.length < 4) {
+            alert("Sua senha é muito fraca!")
+        }  else {
 
 
             // Enviando o valor da nova input

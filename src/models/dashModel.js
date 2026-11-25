@@ -79,7 +79,7 @@ function getQuizPoints(idUsuario) {
     var instrucaoSql = `
         SELECT 
             u.nome, 
-            MAX(q.pontos) 
+            MAX(q.pontos) as maiorPontuacao
         FROM questionario q
         JOIN usuario u ON u.id = q.fk_usuario
         WHERE u.id = ${idUsuario}

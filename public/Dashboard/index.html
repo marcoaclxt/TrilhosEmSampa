@@ -87,9 +87,9 @@
         <section class="stats-row">
             <div class="card">
                 <div class="card-top"></div>
-                <h4 class="card-label">Cadastros</h4>
+                <h4 class="card-label">Acertos no Quiz</h4>
                 <div id="numeroCadastros" class="card-number"></div>
-                <p class="card-foot">Pessoas na base de exemplo</p>
+                <p class="card-foot">Sua maior porcentagem de acertos</p>
             </div>
 
             <div class="card">
@@ -166,6 +166,7 @@
         obterDadosGrafico("estacoes")
         obterDadosGrafico("frotas")
         obterDadosGrafico("frequencia")
+        getQuizPoints()
     }
 
     let proximaAtualizacao;
@@ -182,18 +183,32 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-
     function getQuizPoints() {
         fetch('/dashboard/quiz/getPoints', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                idUsuarioServer: sessionStorage.ID_USUARIO,
-
+                idUsuarioServer: sessionStorage.ID_USUARIO
             })
-        }).catch(function (erro) {
-            console.log('#ERRO:', erro);
-        });
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    return resposta.json();
+                } else {
+                    throw new Error("Erro ao buscar a pontuação.");
+                }
+            })
+            .then(function (dados) {
+
+                if (dados.length > 0) {
+                    numeroCadastros.innerHTML = dados[0].maiorPontuacao + "%";
+                } else {
+                    numeroCadastros.innerHTML = "Sem tentativa";
+                }
+            })
+            .catch(function (erro) {
+                console.log("#ERRO:", erro);
+            });
     }
 
     function obterDadosGrafico(idGrafico) {
@@ -304,8 +319,6 @@
                 msgLinhaFavorita.innerHTML += ` · PRATA`
                 linhaFav = "Linha 15 - Prata"
             }
-
-            getQuizPoints()
 
             dados.datasets[0].data.push(Number(registro.quantidade));
 
