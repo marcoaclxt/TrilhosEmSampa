@@ -108,40 +108,72 @@
     <script>
         // Estrutura do quiz replicada do exemplo em DOCUMENTOS_DE_APOIO.
         const listaDeQuestoes = [
-            // Perguntas de exemplo — você pode substituir por conteúdo real depois.
             {
-                pergunta: "Qual mês tem 30 dias?",
-                alternativaA: "Janeiro",
-                alternativaB: "Dezembro",
-                alternativaC: "Junho",
-                alternativaD: "Agosto",
+                pergunta: "Em que ano o Metrô de São Paulo começou sua operação comercial?",
+                alternativaA: "1968",
+                alternativaB: "1974",
+                alternativaC: "1982",
+                alternativaD: "1991",
+                alternativaCorreta: "alternativaB"
+            },
+            {
+                pergunta: "Qual foi a primeira linha do Metrô de São Paulo a entrar em operação?",
+                alternativaA: "Linha 3 – Vermelha",
+                alternativaB: "Linha 2 – Verde",
+                alternativaC: "Linha 4 – Amarela",
+                alternativaD: "Linha 1 – Azul",
+                alternativaCorreta: "alternativaD"
+            },
+            {
+                pergunta: "Quais estações eram as extremidades do primeiro trecho inaugurado em 1974?",
+                alternativaA: "Jabaquara e Vila Mariana",
+                alternativaB: "Sé e Brás",
+                alternativaC: "Paraíso e Consolação",
+                alternativaD: "Santana e Tucuruvi",
+                alternativaCorreta: "alternativaA"
+            },
+            {
+                pergunta: "Apesar da numeração, qual destas linhas começou a operar antes da Linha 2 – Verde?",
+                alternativaA: "Linha 5 – Lilás",
+                alternativaB: "Linha 15 – Prata",
+                alternativaC: "Linha 3 – Vermelha",
+                alternativaD: "Linha 4 – Amarela",
                 alternativaCorreta: "alternativaC"
             },
             {
-                pergunta: "Quantas horas tem em um dia?",
-                alternativaA: "30 horas",
-                alternativaB: "38 horas",
-                alternativaC: "48 horas",
-                alternativaD: "24 horas",
+                pergunta: "Qual é a cor que identifica a Linha 2 do Metrô?",
+                alternativaA: "Azul",
+                alternativaB: "Verde",
+                alternativaC: "Amarela",
+                alternativaD: "Lilás",
+                alternativaCorreta: "alternativaB"
+            },
+            {
+                pergunta: "Qual destas linhas utiliza o sistema de monotrilho?",
+                alternativaA: "Linha 1 – Azul",
+                alternativaB: "Linha 2 – Verde",
+                alternativaC: "Linha 3 – Vermelha",
+                alternativaD: "Linha 15 – Prata",
                 alternativaCorreta: "alternativaD"
             },
             {
-                pergunta: "Qual destes números é ímpar?",
-                alternativaA: "Dez",
-                alternativaB: "Doze",
-                alternativaC: "Oito",
-                alternativaD: "Onze",
-                alternativaCorreta: "alternativaD"
+                pergunta: "Em qual estação é possível fazer a transferência entre a Linha 2 – Verde e a Linha 15 – Prata?",
+                alternativaA: "Vila Prudente",
+                alternativaB: "Ana Rosa",
+                alternativaC: "República",
+                alternativaD: "Luz",
+                alternativaCorreta: "alternativaA"
             },
             {
-                pergunta: "Teste",
-                alternativaA: "tes",
-                alternativaB: "te",
-                alternativaC: "Oito",
-                alternativaD: "Onze",
-                alternativaCorreta: "alternativaD"
+                pergunta: "Qual destas estações pertence à Linha 2 – Verde?",
+                alternativaA: "São Judas",
+                alternativaB: "Artur Alvim",
+                alternativaC: "Sumaré",
+                alternativaD: "Oratório",
+                alternativaCorreta: "alternativaC"
             }
         ]
+        
 
         let numeroDaQuestaoAtual = 0
         let pontuacaoFinal = 0
@@ -333,7 +365,7 @@
             sessionStorage.PONTOS_QUESTIONARIO = Math.round((porcentagemFinalDeAcertos) * 100);
 
             enviar()
-            
+
         }
     </script>
 </body>
