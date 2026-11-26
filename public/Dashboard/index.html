@@ -288,7 +288,7 @@
         let linhaFav = ""
 
         // Inserindo valores recebidos em estrutura para plotar o gráfico
-        for (i = 0; i < resposta.length; i++) {
+        for (let i = 0; i < resposta.length; i++) {
 
             var registro = resposta[i];
 
@@ -375,6 +375,29 @@
             } else {
 
 
+            }
+        }
+
+        if (idGrafico == "frotas" || idGrafico == "frequencia") {
+            let maiorQuantidade = 0;
+
+            // Descobre a maior quantidade.
+            for (let i = 0; i < resposta.length; i++) {
+                if (Number(resposta[i].quantidade) > maiorQuantidade) {
+                    maiorQuantidade = Number(resposta[i].quantidade);
+                }
+            }
+
+            // Limpa as cores anteriores.
+            dados.datasets[0].backgroundColor = [];
+
+            // Define uma cor para cada quantidade.
+            for (let i = 0; i < resposta.length; i++) {
+                if (Number(resposta[i].quantidade) == maiorQuantidade) {
+                    dados.datasets[0].backgroundColor.push("#234FC1");
+                } else {
+                    dados.datasets[0].backgroundColor.push("#5f83e4");
+                }
             }
         }
 
